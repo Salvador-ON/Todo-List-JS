@@ -6,13 +6,15 @@ class Logic {
   constructor() {
     this.projects = {};
   }
+
   // initialize the to do list
   domInit() {
     DomMan.updateProjectList(this.projects);
     this.addListener();
     DomMan.allMyTask(this.projects);
   }
-//Add a lsitener to the button so we can exceute the diferent methods
+
+  // Add a lsitener to the button so we can exceute the diferent methods
   addListener() {
     const that = this;
     const button = document.getElementById('buttonNewProject');
@@ -20,7 +22,9 @@ class Logic {
     const button2 = document.getElementById('buttonShowAll');
     button2.addEventListener('click', () => { DomMan.allMyTask(this.projects); });
   }
-//validate if the key word is saved on the local storgae if not create template with basic projects
+
+  // validate if the key word is saved on the local storgae
+  // if not create template with basic projects
   localStorageSaved() {
     if (localStorage.getItem('projects') !== null) {
       this.projects = JSON.parse(localStorage.getItem('projects'));
@@ -42,11 +46,13 @@ class Logic {
       localStorage.setItem('projects', JSON.stringify(this.projects));
     }
   }
- // update local storage after interaction
+
+  // update local storage after interaction
   localStorageUpdate() {
     localStorage.setItem('projects', JSON.stringify(this.projects));
   }
-// method to create new projects each project has a name property and the tasks
+
+  // method to create new projects each project has a name property and the tasks
   newProject(name) {
     const project = {
       name,
@@ -55,15 +61,17 @@ class Logic {
     this.localStorageUpdate();
     DomMan.updateProjectList(this.projects);
   }
-// method that validate field value before we create new projects
+
+  // method that validate field value before we create new projects
   createProject() {
     const name = document.getElementById('nameProject').value;
-    if (name !== ""){
-    this.newProject(name);
-    document.getElementById('nameProject').value=""
+    if (name !== '') {
+      this.newProject(name);
+      document.getElementById('nameProject').value = '';
     }
   }
-// method to create new task
+
+  // method to create new task
   newtask(title, description, priority, date, done, project) {
     const task = {
       title,

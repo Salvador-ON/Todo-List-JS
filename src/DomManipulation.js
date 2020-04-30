@@ -1,5 +1,6 @@
 class DomMan {
-  //method to dispaly the project updated list we have the projects object as argument to make all the interactions inside
+  // method to dispaly the project updated list
+  // we have the projects object as argument to make all the interactions inside
   static updateProjectList(projects) {
     document.getElementById('projectList').innerHTML = '';
     Object.keys(projects).forEach(project => {
@@ -14,11 +15,12 @@ class DomMan {
     });
   }
 
-  //method to dispaly the list of task we have the projects object as argument to make all the interactions inside
+  // method to dispaly the list of task
+  // we have the projects object as argument to make all the interactions inside
   static allMyTask(projects) {
     console.log(Object.keys(projects));
     document.getElementById('taskTitle').innerHTML = '';
-    let title = document.getElementById('taskTitle');
+    const title = document.getElementById('taskTitle');
     title.innerHTML = 'All my tasks';
     document.getElementById('tasksLists').innerHTML = '';
     Object.keys(projects).forEach(project => {
@@ -40,7 +42,8 @@ class DomMan {
     });
   }
 
-// method to display the specific information of each task when we click in. it display it in a modal
+  // method to display the specific information of each task
+  // when we click in. it display it in a modal
   static displayData(data, projects) {
     const array = data.split('-');
     $('#exampleModalCenter').modal('show');
@@ -82,7 +85,7 @@ class DomMan {
   static specificTask(projects, project) {
     document.getElementById('tasksLists').innerHTML = '';
     document.getElementById('taskTitle').innerHTML = '';
-    let title = document.getElementById('taskTitle');
+    const title = document.getElementById('taskTitle');
     title.innerHTML = `${project}`;
     Object.keys(projects[project]).forEach(task => {
       if (task !== 'name') {
