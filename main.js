@@ -97,6 +97,9 @@ class DomMan {
   // method to dispaly the project updated list
   // we have the projects object as argument to make all the interactions inside
   static updateProjectList(projects) {
+
+    let self = this;
+
     document.getElementById('projectList').innerHTML = '';
     Object.keys(projects).forEach(project => {
       const button = document.createElement('button');
@@ -104,7 +107,7 @@ class DomMan {
       button.className = 'list-group-item list-group-item-action text-capitalize';
       button.innerHTML = project;
       button.addEventListener('click', () => {
-        DomMan.specificTask(projects, project);
+        self.listTasks(project);
       });
       document.getElementById('projectList').appendChild(button);
     });
@@ -198,13 +201,28 @@ class DomMan {
       }
     });
   }
+
+  static addErrorMessage(errorMessage) {
+    document.getElementById('info-div').className = 'alert alert-success w-100 alert-dismissible fade show';
+    document.getElementById('result-message').innerHTML = errorMessage;
+  }
+
+  static addInfoMessage(infoMessage) {
+    document.getElementById('info-div').className = 'alert alert-success w-100 alert-dismissible fade show';
+    document.getElementById('result-message').innerHTML = infoMessage;
+  }
+
+  static flushInfoMessages() {
+    const infoDiv = document.getElementById('info-div');
+    infoDiv.className = 'd-none';
+  }
 }
 
 /* harmony default export */ var DomManipulation = (DomMan);
 // CONCATENATED MODULE: ./src/LocalStorage.js
 class LocalStorageWrapper {
   static getItem(key) {
-    return localStorage.getItem(key);
+    return JSON.parse(localStorage.getItem(key));
   }
 
   static updateItem(key, data) {
@@ -217,8 +235,8 @@ class LocalStorageWrapper {
 
 // CONCATENATED MODULE: ./src/Project.js
 class Project {
-  constructor() {
-    this.projects = {};
+  constructor(projects) {
+    this.projects = projects;
   }
 
   add(name) {
@@ -230,7 +248,7 @@ class Project {
   }
 
   update(key,data) {
-      
+
   }
 
   getAll() {
@@ -272,6 +290,11 @@ class Task {
   getAll() {
     return this.tasks;
   }
+
+    static getAllByCategory(Category) {
+      console.log('getAllByCategory' , 'categoryTasks');
+    return this.tasks[Category];
+  }
 }
 
 /* harmony default export */ var src_Task = (Task);
@@ -285,22 +308,31 @@ class Task {
 
 class src_Logic {
   constructor() {
-    this.projectObj = new src_Project();
+    this.projectObj = new src_Project(LocalStorage.getItem('projects'));
     this.taskObj = new src_Task();
   }
 
   // initialize the to do list
   domInit() {
-    DomManipulation.updateProjectList(this.projects);
+    DomManipulation.updateProjectList(this.projectObj.getAll());
     this.addListener();
-    DomManipulation.allMyTask(this.projects);
+    DomManipulation.allMyTask(this.taskObj.getAll());
   }
+
 
   // Add a lsitener to the button so we can exceute the diferent methods
   addListener() {
     const that = this;
     const button = document.getElementById('buttonNewProject');
-    button.addEventListener('click', () => { that.createProject(); });
+    button.addEventListener('click', () => {
+      DomManipulation.flushInfoMessages();
+      const projectName = document.getElementById('nameProject').value.toUpperCase();
+      that.projectObj.add(projectName);
+      LocalStorage.updateItem('projects', this.projectObj.getAll());
+      DomManipulation.addInfoMessage(`${projectName} Category Addeed!`);
+      DomManipulation.updateProjectList(this.projectObj.getAll());
+
+    });
     const button2 = document.getElementById('buttonShowAll');
     button2.addEventListener('click', () => { DomManipulation.allMyTask(this.projects); });
   }
@@ -308,7 +340,7 @@ class src_Logic {
   // validate if the key word is saved on the local storgae
   // if not create template with basic projects
   initializeLocalStorage() {
-    if (this.projectObj.isEpmty)
+    if (this.projectObj.isEpmty())
     {
       this.projectObj.add('mohamed');
       this.projectObj.add('home2');
@@ -332,43 +364,8 @@ class src_Logic {
     DomManipulation.updateProjectList(this.projectObj.getAll());
   }
 
-  // update local storage after interaction
-  localStorageUpdate() {
-    localStorage.setItem('projects', JSON.stringify(this.projectObj.getAll()));
-  }
-
-  // method to create new projects each project has a name property and the tasks
-  newProject(name) {
-    const project = {
-      name,
-    };
-    this.projects[project.name] = project;
-    this.localStorageUpdate();
-    DomManipulation.updateProjectList(this.projects);
-  }
-
-  // method that validate field value before we create new projects
-  createProject() {
-    const name = document.getElementById('nameProject').value;
-    if (name !== '') {
-      src_Project.add(name);
-      document.getElementById('nameProject').value = '';
-    }
-  }
-
-  // method to create new task
-  newtask(title, description, priority, date, done, project) {
-    const task = {
-      title,
-      description,
-      priority,
-      date,
-      done,
-      project,
-    };
-
-    this.projects[task.project][task.title] = task;
-    this.localStorageUpdate();
+  static listTasks(categrory) {
+    alert(categrory);
   }
 }
 
