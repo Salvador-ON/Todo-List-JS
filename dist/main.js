@@ -183,21 +183,24 @@ class DomManipulation_DomMan {
     document.getElementById('taskTitle').innerHTML = '';
     const title = document.getElementById('taskTitle');
     title.innerHTML = `${project}`;
-    Object.keys(projects[project]).forEach(task => {
-      if (task !== 'name') {
-        console.log(projects[project][task]);
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.id = `${projects[project][task].project}-${projects[project][task].title}`;
-        button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
-        button.classList.add(DomManipulation_DomMan.displayColor(projects[project][task].priority));
-        button.innerHTML = `<span>${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
-        button.addEventListener('click', function ddata() {
-          DomManipulation_DomMan.displayData(this.id, projects);
-        });
-        document.getElementById('tasksLists').appendChild(button);
-      }
-    });
+    // console.log(Object.keys(projects))
+    console.log(projects[project])
+    // console.log(Object.entries(projects).length === 0)
+  //   Object.keys(projects).forEach(task => {
+  //     if (task !== 'name') {
+  //       console.log(projects[project][task]);
+  //       const button = document.createElement('button');
+  //       button.type = 'button';
+  //       button.id = `${projects[project][task].project}-${projects[project][task].title}`;
+  //       button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
+  //       button.classList.add(DomMan.displayColor(projects[project][task].priority));
+  //       button.innerHTML = `<span>${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
+  //       button.addEventListener('click', function ddata() {
+  //         DomMan.displayData(this.id, projects);
+  //       });
+  //       document.getElementById('tasksLists').appendChild(button);
+  //     }
+  //  });
   }
 
   static addErrorMessage(errorMessage) {
@@ -364,8 +367,8 @@ class src_Logic {
     DomManipulation.updateProjectList(this.projectObj.getAll());
   }
 
-  static listTasks(categrory) {
-    alert(categrory);
+  static listTasks(category) {
+    DomManipulation.specificTask(LocalStorage.getItem('tasks'), category)
   }
 }
 

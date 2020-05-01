@@ -63,8 +63,8 @@ class Logic {
     DomMan.updateProjectList(this.projectObj.getAll());
   }
 
-  static listTasks(categrory) {
-    alert(categrory);
+  static listTasks(category) {
+    DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), category)
   }
 }
 
