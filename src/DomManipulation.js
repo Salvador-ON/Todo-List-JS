@@ -83,29 +83,39 @@ class DomMan {
   }
 
   // method to display the task of a specify category
-  static specificTask(projects, project) {
+  static specificTask(categories, category) {
     document.getElementById('tasksLists').innerHTML = '';
     document.getElementById('taskTitle').innerHTML = '';
     const title = document.getElementById('taskTitle');
-    title.innerHTML = `${project}`;
-    // console.log(Object.keys(projects))
-    console.log(projects[project])
+    title.innerHTML = `${category}`;
+    // console.log(Object.keys(categories[category]))
+    // console.log(Object.entries(categories[category]))
     // console.log(Object.entries(projects).length === 0)
-  //   Object.keys(projects).forEach(task => {
-  //     if (task !== 'name') {
-  //       console.log(projects[project][task]);
-  //       const button = document.createElement('button');
-  //       button.type = 'button';
-  //       button.id = `${projects[project][task].project}-${projects[project][task].title}`;
-  //       button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
-  //       button.classList.add(DomMan.displayColor(projects[project][task].priority));
-  //       button.innerHTML = `<span>${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
-  //       button.addEventListener('click', function ddata() {
-  //         DomMan.displayData(this.id, projects);
-  //       });
-  //       document.getElementById('tasksLists').appendChild(button);
-  //     }
-  //  });
+
+    const categoryTasks = categories[category];
+    //  console.log(categoryTasks ,'category task')
+    if (category in categories) {
+      Object.keys(categories[category]).forEach(task => {
+        if (task !== 'name') {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.id = `${categories[category][task].project}-${categories[category][task].title}`;
+          button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
+          button.classList.add(DomMan.displayColor(categories[category][task].priority));
+          button.innerHTML = `<span>${categories[category][task].title}</span><span>${categories[category][task].date}</span>`;
+          button.addEventListener('click', function ddata() {
+            DomMan.displayData(this.id, projects);
+          });
+          document.getElementById('tasksLists').appendChild(button);
+        }
+      });
+    }
+    else {
+      const spanAlert = document.createElement('span');
+      spanAlert.innerHTML="Empty Task List"
+      document.getElementById('tasksLists').appendChild(spanAlert)
+    }
+
   }
 
   static addErrorMessage(errorMessage) {
