@@ -3,8 +3,6 @@ class DomMan {
   // method to dispaly the project updated list
   // we have the projects object as argument to make all the interactions inside
   static updateProjectList(projects) {
-
-    
     document.getElementById('projectList').innerHTML = '';
     Object.keys(projects).forEach(project => {
       const button = document.createElement('button');

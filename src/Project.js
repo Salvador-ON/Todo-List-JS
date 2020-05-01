@@ -1,6 +1,6 @@
 class Project {
   constructor(projects) {
-    this.projects = projects;
+    this.projects = projects === null ? {} : projects;
   }
 
   add(name) {
@@ -11,9 +11,7 @@ class Project {
     return true;
   }
 
-  update(key,data) {
-
-  }
+  update(key, data) {}
 
   getAll() {
     return this.projects;
@@ -23,9 +21,7 @@ class Project {
     return this.projects === null;
   }
 
-  fillDummyProjects(){
-
-  }
+  fillDummyProjects() {}
 }
 
 export default Project;

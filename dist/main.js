@@ -98,8 +98,6 @@ class DomManipulation_DomMan {
   // method to dispaly the project updated list
   // we have the projects object as argument to make all the interactions inside
   static updateProjectList(projects) {
-
-    
     document.getElementById('projectList').innerHTML = '';
     Object.keys(projects).forEach(project => {
       const button = document.createElement('button');
@@ -236,7 +234,7 @@ class LocalStorageWrapper {
 // CONCATENATED MODULE: ./src/Project.js
 class Project {
   constructor(projects) {
-    this.projects = projects;
+    this.projects = projects === null ? {} : projects;
   }
 
   add(name) {
@@ -247,9 +245,7 @@ class Project {
     return true;
   }
 
-  update(key,data) {
-
-  }
+  update(key, data) {}
 
   getAll() {
     return this.projects;
@@ -259,9 +255,7 @@ class Project {
     return this.projects === null;
   }
 
-  fillDummyProjects(){
-
-  }
+  fillDummyProjects() {}
 }
 
 /* harmony default export */ var src_Project = (Project);
