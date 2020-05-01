@@ -1,6 +1,6 @@
 class Task {
-  constructor() {
-    this.tasks = {};
+  constructor(tasks) {
+    this.tasks = tasks === null ? {} : tasks;
   }
 
   add(title, description, priority, date, done, project) {
@@ -22,9 +22,9 @@ class Task {
     return this.tasks;
   }
 
-    static getAllByCategory(Category) {
-      console.log('getAllByCategory' , 'categoryTasks');
-    return this.tasks[Category];
+  remove(category, taskName) {
+
+    console.log(this.tasks[category], category, taskName);
   }
 }
 

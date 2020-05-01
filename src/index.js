@@ -7,7 +7,7 @@ import Task from './Task';
 class Logic {
   constructor() {
     this.projectObj = new Project(LocalStorageWrapper.getItem('projects'));
-    this.taskObj = new Task();
+    this.taskObj = new Task(LocalStorageWrapper.getItem('tasks'));
   }
 
   // initialize the to do list
@@ -29,7 +29,6 @@ class Logic {
       LocalStorageWrapper.updateItem('projects', this.projectObj.getAll());
       DomMan.addInfoMessage(`${projectName} Category Addeed!`);
       DomMan.updateProjectList(this.projectObj.getAll());
-
     });
     const button2 = document.getElementById('buttonShowAll');
     button2.addEventListener('click', () => { DomMan.allMyTask(this.projects); });
@@ -38,9 +37,7 @@ class Logic {
   // validate if the key word is saved on the local storgae
   // if not create template with basic projects
   initializeLocalStorage() {
-    console.log('initializeLocalStorage' , this.projectObj.isEpmty() , this.projectObj.getAll());
-    if (this.projectObj.isEpmty())
-    {
+    if (this.projectObj.isEpmty()) {
       this.projectObj.add('mohamed');
       this.projectObj.add('home2');
       this.projectObj.add('groceries');
@@ -48,7 +45,7 @@ class Logic {
       this.projectObj.add('kids');
 
       this.taskObj.add('milk', '4 liter', 1, '1-05-2020', false, 'groceries');
-      this.taskObj.add('chocolate', '2 bars', 2, '1-05-2020', false, 'groceries');
+      this.taskObj.add('chocolate', '2 bars', 2, '1-05-2020', true, 'groceries');
       this.taskObj.add('flour', '1 kg', 3, '1-05-2020', false, 'groceries');
 
       this.taskObj.add('finish budget', 'the presentation is on zoom', 3, '4-05-2020', false, 'office');
@@ -64,7 +61,12 @@ class Logic {
   }
 
   static listTasks(category) {
-    DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), category)
+    DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), category);
+  }
+
+  removeTask(category, taskName) {
+    this.taskObj.remove(category, taskName);
+    LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());
   }
 }
 
