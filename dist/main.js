@@ -93,13 +93,13 @@
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./src/DomManipulation.js
-class DomMan {
+
+class DomManipulation_DomMan {
   // method to dispaly the project updated list
   // we have the projects object as argument to make all the interactions inside
   static updateProjectList(projects) {
 
-    let self = this;
-
+    
     document.getElementById('projectList').innerHTML = '';
     Object.keys(projects).forEach(project => {
       const button = document.createElement('button');
@@ -107,7 +107,7 @@ class DomMan {
       button.className = 'list-group-item list-group-item-action text-capitalize';
       button.innerHTML = project;
       button.addEventListener('click', () => {
-        self.listTasks(project);
+        src.listTasks(project);
       });
       document.getElementById('projectList').appendChild(button);
     });
@@ -129,10 +129,10 @@ class DomMan {
           button.type = 'button';
           button.id = `${projects[project][task].project}-${projects[project][task].title}`;
           button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
-          button.classList.add(DomMan.displayColor(projects[project][task].priority));
+          button.classList.add(DomManipulation_DomMan.displayColor(projects[project][task].priority));
           button.innerHTML = `<span>${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
           button.addEventListener('click', function ddata() {
-            DomMan.displayData(this.id, projects);
+            DomManipulation_DomMan.displayData(this.id, projects);
           });
           document.getElementById('tasksLists').appendChild(button);
         }
@@ -192,10 +192,10 @@ class DomMan {
         button.type = 'button';
         button.id = `${projects[project][task].project}-${projects[project][task].title}`;
         button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
-        button.classList.add(DomMan.displayColor(projects[project][task].priority));
+        button.classList.add(DomManipulation_DomMan.displayColor(projects[project][task].priority));
         button.innerHTML = `<span>${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
         button.addEventListener('click', function ddata() {
-          DomMan.displayData(this.id, projects);
+          DomManipulation_DomMan.displayData(this.id, projects);
         });
         document.getElementById('tasksLists').appendChild(button);
       }
@@ -218,7 +218,7 @@ class DomMan {
   }
 }
 
-/* harmony default export */ var DomManipulation = (DomMan);
+/* harmony default export */ var DomManipulation = (DomManipulation_DomMan);
 // CONCATENATED MODULE: ./src/LocalStorage.js
 class LocalStorageWrapper {
   static getItem(key) {
@@ -373,6 +373,7 @@ const toDo = new src_Logic();
 toDo.initializeLocalStorage();
 toDo.domInit();
 
+/* harmony default export */ var src = __webpack_exports__["default"] = (src_Logic);
 
 /***/ })
 /******/ ]);

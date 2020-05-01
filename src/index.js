@@ -70,3 +70,5 @@ class Logic {
 const toDo = new Logic();
 toDo.initializeLocalStorage();
 toDo.domInit();
+
+export default Logic;

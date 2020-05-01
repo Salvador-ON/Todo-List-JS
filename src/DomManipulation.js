@@ -1,10 +1,10 @@
+import Logic from './index';
 class DomMan {
   // method to dispaly the project updated list
   // we have the projects object as argument to make all the interactions inside
   static updateProjectList(projects) {
 
-    let self = this;
-
+    
     document.getElementById('projectList').innerHTML = '';
     Object.keys(projects).forEach(project => {
       const button = document.createElement('button');
@@ -12,7 +12,7 @@ class DomMan {
       button.className = 'list-group-item list-group-item-action text-capitalize';
       button.innerHTML = project;
       button.addEventListener('click', () => {
-        self.listTasks(project);
+        Logic.listTasks(project);
       });
       document.getElementById('projectList').appendChild(button);
     });
