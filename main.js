@@ -252,7 +252,12 @@ class Project {
   }
 
   isEpmty() {
-    return this.projects === null;
+    let projects = this.projects;
+    for (var prop in projects) {
+      if (projects.hasOwnProperty(prop)) return false;
+    }
+    
+    return true;
   }
 
   fillDummyProjects() {}
@@ -334,6 +339,7 @@ class src_Logic {
   // validate if the key word is saved on the local storgae
   // if not create template with basic projects
   initializeLocalStorage() {
+    console.log('initializeLocalStorage' , this.projectObj.isEpmty() , this.projectObj.getAll());
     if (this.projectObj.isEpmty())
     {
       this.projectObj.add('mohamed');
