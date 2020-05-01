@@ -18,7 +18,12 @@ class Project {
   }
 
   isEpmty() {
-    return this.projects === null;
+    let projects = this.projects;
+    for (var prop in projects) {
+      if (projects.hasOwnProperty(prop)) return false;
+    }
+    
+    return true;
   }
 
   fillDummyProjects() {}
