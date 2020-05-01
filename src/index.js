@@ -6,22 +6,31 @@ import Task from './Task';
 
 class Logic {
   constructor() {
-    this.projectObj = new Project();
+    this.projectObj = new Project(LocalStorageWrapper.getItem('projects'));
     this.taskObj = new Task();
   }
 
   // initialize the to do list
   domInit() {
-    DomMan.updateProjectList(this.projects);
+    DomMan.updateProjectList(this.projectObj.getAll());
     this.addListener();
-    DomMan.allMyTask(this.projects);
+    DomMan.allMyTask(this.taskObj.getAll());
   }
+
 
   // Add a lsitener to the button so we can exceute the diferent methods
   addListener() {
     const that = this;
     const button = document.getElementById('buttonNewProject');
-    button.addEventListener('click', () => { that.createProject(); });
+    button.addEventListener('click', () => {
+      DomMan.flushInfoMessages();
+      const projectName = document.getElementById('nameProject').value.toUpperCase();
+      that.projectObj.add(projectName);
+      LocalStorageWrapper.updateItem('projects', this.projectObj.getAll());
+      DomMan.addInfoMessage(`${projectName} Category Addeed!`);
+      DomMan.updateProjectList(this.projectObj.getAll());
+
+    });
     const button2 = document.getElementById('buttonShowAll');
     button2.addEventListener('click', () => { DomMan.allMyTask(this.projects); });
   }
@@ -29,7 +38,7 @@ class Logic {
   // validate if the key word is saved on the local storgae
   // if not create template with basic projects
   initializeLocalStorage() {
-    if (this.projectObj.isEpmty)
+    if (this.projectObj.isEpmty())
     {
       this.projectObj.add('mohamed');
       this.projectObj.add('home2');
@@ -53,43 +62,8 @@ class Logic {
     DomMan.updateProjectList(this.projectObj.getAll());
   }
 
-  // update local storage after interaction
-  localStorageUpdate() {
-    localStorage.setItem('projects', JSON.stringify(this.projectObj.getAll()));
-  }
-
-  // method to create new projects each project has a name property and the tasks
-  newProject(name) {
-    const project = {
-      name,
-    };
-    this.projects[project.name] = project;
-    this.localStorageUpdate();
-    DomMan.updateProjectList(this.projects);
-  }
-
-  // method that validate field value before we create new projects
-  createProject() {
-    const name = document.getElementById('nameProject').value;
-    if (name !== '') {
-      Project.add(name);
-      document.getElementById('nameProject').value = '';
-    }
-  }
-
-  // method to create new task
-  newtask(title, description, priority, date, done, project) {
-    const task = {
-      title,
-      description,
-      priority,
-      date,
-      done,
-      project,
-    };
-
-    this.projects[task.project][task.title] = task;
-    this.localStorageUpdate();
+  static listTasks(categrory) {
+    alert(categrory);
   }
 }
 

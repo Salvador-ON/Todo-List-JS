@@ -2,6 +2,9 @@ class DomMan {
   // method to dispaly the project updated list
   // we have the projects object as argument to make all the interactions inside
   static updateProjectList(projects) {
+
+    let self = this;
+
     document.getElementById('projectList').innerHTML = '';
     Object.keys(projects).forEach(project => {
       const button = document.createElement('button');
@@ -9,7 +12,7 @@ class DomMan {
       button.className = 'list-group-item list-group-item-action text-capitalize';
       button.innerHTML = project;
       button.addEventListener('click', () => {
-        DomMan.specificTask(projects, project);
+        self.listTasks(project);
       });
       document.getElementById('projectList').appendChild(button);
     });
@@ -102,6 +105,21 @@ class DomMan {
         document.getElementById('tasksLists').appendChild(button);
       }
     });
+  }
+
+  static addErrorMessage(errorMessage) {
+    document.getElementById('info-div').className = 'alert alert-success w-100 alert-dismissible fade show';
+    document.getElementById('result-message').innerHTML = errorMessage;
+  }
+
+  static addInfoMessage(infoMessage) {
+    document.getElementById('info-div').className = 'alert alert-success w-100 alert-dismissible fade show';
+    document.getElementById('result-message').innerHTML = infoMessage;
+  }
+
+  static flushInfoMessages() {
+    const infoDiv = document.getElementById('info-div');
+    infoDiv.className = 'd-none';
   }
 }
 

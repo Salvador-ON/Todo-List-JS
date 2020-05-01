@@ -1,6 +1,6 @@
 class Project {
-  constructor() {
-    this.projects = {};
+  constructor(projects) {
+    this.projects = projects;
   }
 
   add(name) {
@@ -12,7 +12,7 @@ class Project {
   }
 
   update(key,data) {
-      
+
   }
 
   getAll() {

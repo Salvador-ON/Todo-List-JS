@@ -1,6 +1,6 @@
 class LocalStorageWrapper {
   static getItem(key) {
-    return localStorage.getItem(key);
+    return JSON.parse(localStorage.getItem(key));
   }
 
   static updateItem(key, data) {

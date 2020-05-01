@@ -21,6 +21,11 @@ class Task {
   getAll() {
     return this.tasks;
   }
+
+    static getAllByCategory(Category) {
+      console.log('getAllByCategory' , 'categoryTasks');
+    return this.tasks[Category];
+  }
 }
 
 export default Task;
