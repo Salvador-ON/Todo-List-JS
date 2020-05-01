@@ -1,1 +1,381 @@
-!function(e){var t={};function n(i){if(t[i])return t[i].exports;var o=t[i]={i:i,l:!1,exports:{}};return e[i].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,i){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(i,o,function(t){return e[t]}.bind(null,o));return i},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";n.r(t);class i{static updateProjectList(e){document.getElementById("projectList").innerHTML="",Object.keys(e).forEach(t=>{const n=document.createElement("button");n.type="button",n.className="list-group-item list-group-item-action text-capitalize",n.innerHTML=t,n.addEventListener("click",()=>{i.specificTask(e,t)}),document.getElementById("projectList").appendChild(n)})}static allMyTask(e){console.log(Object.keys(e)),document.getElementById("taskTitle").innerHTML="",document.getElementById("taskTitle").innerHTML="All my tasks",document.getElementById("tasksLists").innerHTML="",Object.keys(e).forEach(t=>{Object.keys(e[t]).forEach(n=>{if("name"!==n){console.log(e[t][n]);const o=document.createElement("button");o.type="button",o.id=`${e[t][n].project}-${e[t][n].title}`,o.className="list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between",o.classList.add(i.displayColor(e[t][n].priority)),o.innerHTML=`<span>${e[t][n].title}</span><span>${e[t][n].date}</span>`,o.addEventListener("click",(function(){i.displayData(this.id,e)})),document.getElementById("tasksLists").appendChild(o)}})})}static displayData(e,t){const n=e.split("-");$("#exampleModalCenter").modal("show");const i=document.getElementById("exampleModalCenterTitle");i.innerHTML=t[n[0]][n[1]].title,i.classList.add("text-capitalize");const o=document.getElementById("descriptionDisplay"),s=document.getElementById("categoryDisplay"),r=document.getElementById("priorityDisplay"),a=document.getElementById("dateDisplay"),c=document.getElementById("completeDisplay");o.innerHTML=t[n[0]][n[1]].description,r.innerHTML=t[n[0]][n[1]].priority,a.innerHTML=t[n[0]][n[1]].date,c.innerHTML=t[n[0]][n[1]].done,s.innerHTML=t[n[0]][n[1]].project}static displayColor(e){let t="";switch(e){case 1:t="bg-danger";break;case 2:t="bg-warning";break;case 3:t="bg-success";break;default:t="bg-secondary"}return t}static specificTask(e,t){document.getElementById("tasksLists").innerHTML="",document.getElementById("taskTitle").innerHTML="",document.getElementById("taskTitle").innerHTML=""+t,Object.keys(e[t]).forEach(n=>{if("name"!==n){console.log(e[t][n]);const o=document.createElement("button");o.type="button",o.id=`${e[t][n].project}-${e[t][n].title}`,o.className="list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between",o.classList.add(i.displayColor(e[t][n].priority)),o.innerHTML=`<span>${e[t][n].title}</span><span>${e[t][n].date}</span>`,o.addEventListener("click",(function(){i.displayData(this.id,e)})),document.getElementById("tasksLists").appendChild(o)}})}}var o=i;const s=new class{constructor(){this.projects={}}domInit(){o.updateProjectList(this.projects),this.addListener(),o.allMyTask(this.projects)}addListener(){const e=this;document.getElementById("buttonNewProject").addEventListener("click",()=>{e.createProject()}),document.getElementById("buttonShowAll").addEventListener("click",()=>{o.allMyTask(this.projects)})}localStorageSaved(){null!==localStorage.getItem("projects")?this.projects=JSON.parse(localStorage.getItem("projects")):(this.newProject("home"),this.newProject("groceries"),this.newProject("office"),this.newProject("kids"),this.newtask("milk","4 liter",1,"1-05-2020",!1,"groceries"),this.newtask("chocolate","2 bars",2,"1-05-2020",!1,"groceries"),this.newtask("flour","1 kg",3,"1-05-2020",!1,"groceries"),this.newtask("finish budget","the presentation is on zoom",3,"4-05-2020",!1,"office"),this.newtask("Tv interview","prepare information",2,"1-05-2020",!1,"office"),this.newtask("Mike match","Central court avenue 125",1,"7-05-2020",!1,"kids"),localStorage.setItem("projects",JSON.stringify(this.projects)))}localStorageUpdate(){localStorage.setItem("projects",JSON.stringify(this.projects))}newProject(e){const t={name:e};this.projects[t.name]=t,this.localStorageUpdate(),o.updateProjectList(this.projects)}createProject(){const e=document.getElementById("nameProject").value;""!==e&&(this.newProject(e),document.getElementById("nameProject").value="")}newtask(e,t,n,i,o,s){const r={title:e,description:t,priority:n,date:i,done:o,project:s};this.projects[r.project][r.title]=r,this.localStorageUpdate()}};s.localStorageSaved(),s.domInit()}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./src/DomManipulation.js
+class DomMan {
+  // method to dispaly the project updated list
+  // we have the projects object as argument to make all the interactions inside
+  static updateProjectList(projects) {
+    document.getElementById('projectList').innerHTML = '';
+    Object.keys(projects).forEach(project => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'list-group-item list-group-item-action text-capitalize';
+      button.innerHTML = project;
+      button.addEventListener('click', () => {
+        DomMan.specificTask(projects, project);
+      });
+      document.getElementById('projectList').appendChild(button);
+    });
+  }
+
+  // method to dispaly the list of task
+  // we have the projects object as argument to make all the interactions inside
+  static allMyTask(projects) {
+    console.log(Object.keys(projects));
+    document.getElementById('taskTitle').innerHTML = '';
+    const title = document.getElementById('taskTitle');
+    title.innerHTML = 'All my tasks';
+    document.getElementById('tasksLists').innerHTML = '';
+    Object.keys(projects).forEach(project => {
+      Object.keys(projects[project]).forEach(task => {
+        if (task !== 'name') {
+          console.log(projects[project][task]);
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.id = `${projects[project][task].project}-${projects[project][task].title}`;
+          button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
+          button.classList.add(DomMan.displayColor(projects[project][task].priority));
+          button.innerHTML = `<span>${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
+          button.addEventListener('click', function ddata() {
+            DomMan.displayData(this.id, projects);
+          });
+          document.getElementById('tasksLists').appendChild(button);
+        }
+      });
+    });
+  }
+
+  // method to display the specific information of each task
+  // when we click in. it display it in a modal
+  static displayData(data, projects) {
+    const array = data.split('-');
+    $('#exampleModalCenter').modal('show');
+    const title = document.getElementById('exampleModalCenterTitle');
+    title.innerHTML = projects[array[0]][array[1]].title;
+    title.classList.add('text-capitalize');
+    const description = document.getElementById('descriptionDisplay');
+    const category = document.getElementById('categoryDisplay');
+    const priority = document.getElementById('priorityDisplay');
+    const date = document.getElementById('dateDisplay');
+    const complete = document.getElementById('completeDisplay');
+    description.innerHTML = projects[array[0]][array[1]].description;
+    priority.innerHTML = projects[array[0]][array[1]].priority;
+    date.innerHTML = projects[array[0]][array[1]].date;
+    complete.innerHTML = projects[array[0]][array[1]].done;
+    category.innerHTML = projects[array[0]][array[1]].project;
+  }
+
+  // METHOD TO OBTAIN THE bg-color class in relation to the prioritys of each task
+  static displayColor(priority) {
+    let x = '';
+    switch (priority) {
+      case 1:
+        x = 'bg-danger';
+        break;
+      case 2:
+        x = 'bg-warning';
+        break;
+      case 3:
+        x = 'bg-success';
+        break;
+      default:
+        x = 'bg-secondary';
+    }
+    return x;
+  }
+
+  // method to display the task of a specify category
+  static specificTask(projects, project) {
+    document.getElementById('tasksLists').innerHTML = '';
+    document.getElementById('taskTitle').innerHTML = '';
+    const title = document.getElementById('taskTitle');
+    title.innerHTML = `${project}`;
+    Object.keys(projects[project]).forEach(task => {
+      if (task !== 'name') {
+        console.log(projects[project][task]);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.id = `${projects[project][task].project}-${projects[project][task].title}`;
+        button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
+        button.classList.add(DomMan.displayColor(projects[project][task].priority));
+        button.innerHTML = `<span>${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
+        button.addEventListener('click', function ddata() {
+          DomMan.displayData(this.id, projects);
+        });
+        document.getElementById('tasksLists').appendChild(button);
+      }
+    });
+  }
+}
+
+/* harmony default export */ var DomManipulation = (DomMan);
+// CONCATENATED MODULE: ./src/LocalStorage.js
+class LocalStorageWrapper {
+  static getItem(key) {
+    return localStorage.getItem(key);
+  }
+
+  static updateItem(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+    return this;
+  }
+}
+
+/* harmony default export */ var LocalStorage = (LocalStorageWrapper);
+
+// CONCATENATED MODULE: ./src/Project.js
+class Project {
+  constructor() {
+    this.projects = {};
+  }
+
+  add(name) {
+    const project = {
+      name,
+    };
+    this.projects[project.name] = project;
+    return true;
+  }
+
+  update(key,data) {
+      
+  }
+
+  getAll() {
+    return this.projects;
+  }
+
+  isEpmty() {
+    return this.projects === null;
+  }
+
+  fillDummyProjects(){
+
+  }
+}
+
+/* harmony default export */ var src_Project = (Project);
+
+// CONCATENATED MODULE: ./src/Task.js
+class Task {
+  constructor() {
+    this.tasks = {};
+  }
+
+  add(title, description, priority, date, done, project) {
+    const task = {
+      title,
+      description,
+      priority,
+      date,
+      done,
+      project,
+    };
+    if (this.tasks[task.project] === undefined) {
+      this.tasks[task.project] = {};
+    }
+    this.tasks[task.project][task.title] = task;
+  }
+
+  getAll() {
+    return this.tasks;
+  }
+}
+
+/* harmony default export */ var src_Task = (Task);
+
+// CONCATENATED MODULE: ./src/index.js
+// import _ from 'lodash';
+
+
+
+
+
+class src_Logic {
+  constructor() {
+    this.projectObj = new src_Project();
+    this.taskObj = new src_Task();
+  }
+
+  // initialize the to do list
+  domInit() {
+    DomManipulation.updateProjectList(this.projects);
+    this.addListener();
+    DomManipulation.allMyTask(this.projects);
+  }
+
+  // Add a lsitener to the button so we can exceute the diferent methods
+  addListener() {
+    const that = this;
+    const button = document.getElementById('buttonNewProject');
+    button.addEventListener('click', () => { that.createProject(); });
+    const button2 = document.getElementById('buttonShowAll');
+    button2.addEventListener('click', () => { DomManipulation.allMyTask(this.projects); });
+  }
+
+  // validate if the key word is saved on the local storgae
+  // if not create template with basic projects
+  initializeLocalStorage() {
+    if (this.projectObj.isEpmty)
+    {
+      this.projectObj.add('mohamed');
+      this.projectObj.add('home2');
+      this.projectObj.add('groceries');
+      this.projectObj.add('office');
+      this.projectObj.add('kids');
+
+      this.taskObj.add('milk', '4 liter', 1, '1-05-2020', false, 'groceries');
+      this.taskObj.add('chocolate', '2 bars', 2, '1-05-2020', false, 'groceries');
+      this.taskObj.add('flour', '1 kg', 3, '1-05-2020', false, 'groceries');
+
+      this.taskObj.add('finish budget', 'the presentation is on zoom', 3, '4-05-2020', false, 'office');
+      this.taskObj.add('Tv interview', 'prepare information', 2, '1-05-2020', false, 'office');
+
+      this.taskObj.add('Mike match', 'Central court avenue 125', 1, '7-05-2020', false, 'kids');
+
+      LocalStorage.updateItem('projects', this.projectObj.getAll());
+      LocalStorage.updateItem('tasks', this.taskObj.getAll());
+    }
+
+    DomManipulation.updateProjectList(this.projectObj.getAll());
+  }
+
+  // update local storage after interaction
+  localStorageUpdate() {
+    localStorage.setItem('projects', JSON.stringify(this.projectObj.getAll()));
+  }
+
+  // method to create new projects each project has a name property and the tasks
+  newProject(name) {
+    const project = {
+      name,
+    };
+    this.projects[project.name] = project;
+    this.localStorageUpdate();
+    DomManipulation.updateProjectList(this.projects);
+  }
+
+  // method that validate field value before we create new projects
+  createProject() {
+    const name = document.getElementById('nameProject').value;
+    if (name !== '') {
+      src_Project.add(name);
+      document.getElementById('nameProject').value = '';
+    }
+  }
+
+  // method to create new task
+  newtask(title, description, priority, date, done, project) {
+    const task = {
+      title,
+      description,
+      priority,
+      date,
+      done,
+      project,
+    };
+
+    this.projects[task.project][task.title] = task;
+    this.localStorageUpdate();
+  }
+}
+
+const toDo = new src_Logic();
+toDo.initializeLocalStorage();
+toDo.domInit();
+
+
+/***/ })
+/******/ ]);
