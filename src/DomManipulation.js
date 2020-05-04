@@ -94,16 +94,17 @@ class DomMan {
   static specificTask(categories, category) {
     document.getElementById('buttonModal').innerHTML='';
     const buttonModal = document.createElement('button');
-    buttonModal.id = 'buttonUpdate'
-    buttonModal.className='btn btn-primary';
-    buttonModal.type='button';
-    buttonModal.innerHTML= 'Update task';
+    buttonModal.id = 'buttonUpdate';
+    buttonModal.className = 'btn btn-primary';
+    buttonModal.type = 'button';
+    buttonModal.innerHTML = 'Update task';
     document.getElementById('buttonModal').appendChild(buttonModal);
     document.getElementById('tasksLists').innerHTML = '';
     document.getElementById('taskTitle').innerHTML = '';
     const title = document.getElementById('taskTitle');
+    const logicobject = new Logic();
+
     title.innerHTML = `${category}`;
-    //  console.log(categoryTasks ,'category task')
     if (category in categories) {
       Object.keys(categories[category]).forEach(task => {
         const tasktDetails = categories[category][task];
@@ -117,7 +118,10 @@ class DomMan {
           // button.innerHTML = `<input type='checkbox'> <span style= 'text-decoration: ${taskCompltedStyle};'>${tasktDetails.title}</span><span class="float-right">${tasktDetails.date}<i class="fas fa-trash-alt px-2" onClick="Logic.removeTask('asd','asd2');"></i></span>`;
           const checkboxInput = document.createElement('input');
           checkboxInput.type = 'checkbox';
-
+          checkboxInput.checked = tasktDetails.done;
+          checkboxInput.addEventListener('click', () => {
+            logicobject.toggleTaskStatus(category, tasktDetails.title);
+          });
           const taskTitleSpan = document.createElement('span');
           taskTitleSpan.style.textDecoration = taskCompltedStyle;
           taskTitleSpan.innerText = tasktDetails.title;
@@ -129,9 +133,7 @@ class DomMan {
           const removeSpan = document.createElement('i');
           removeSpan.className = 'fas fa-trash-alt px-2';
           removeSpan.addEventListener('click', () => {
-            const logicobject = new Logic();
-            console.log(logicobject.removeTask('moahmed', 'naser'), 'instance');
-            Logic.removeTask('asd', 'moahmed');
+            logicobject.removeTask(category, tasktDetails.title);
           });
           button.appendChild(checkboxInput);
           button.appendChild(taskTitleSpan);

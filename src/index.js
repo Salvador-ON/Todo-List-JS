@@ -69,7 +69,17 @@ class Logic {
   removeTask(category, taskName) {
     this.taskObj.remove(category, taskName);
     LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());
+    DomMan.addInfoMessage(`${taskName} Deleted Suucess !`);
+    DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), category);
   }
+
+  toggleTaskStatus(category, taskName) {
+    this.taskObj.toggleStatus(category, taskName);
+    LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());
+    DomMan.addInfoMessage(`${taskName} Updated Suucess !`);
+    DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), category);
+  }
+
 }
 
 const toDo = new Logic();

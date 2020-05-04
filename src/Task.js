@@ -23,8 +23,11 @@ class Task {
   }
 
   remove(category, taskName) {
+    delete this.tasks[category][taskName];
+  }
 
-    console.log(this.tasks[category], category, taskName);
+  toggleStatus(category, taskName) {
+    this.tasks[category][taskName].done = !this.tasks[category][taskName].done;
   }
 }
 

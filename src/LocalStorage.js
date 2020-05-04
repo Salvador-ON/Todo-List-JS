@@ -8,10 +8,10 @@ class LocalStorageWrapper {
     return this;
   }
 
-  static removeTask(category , task){
-    const tasks =  JSON.parse(localStorage.getItem('tasks'));
-    console.log('all tasks ' , tasks);
-  }
+  // static removeTask(category , task){
+  //   const tasks =  JSON.parse(localStorage.getItem('tasks'));
+  //   console.log('all tasks ' , tasks);
+  // }
 }
 
 export default LocalStorageWrapper;
