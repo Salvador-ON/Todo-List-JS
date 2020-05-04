@@ -35,12 +35,12 @@ This project was executed by the duo of :
 Open your git bash and cd to the location you'd like to put your files the run the command below.
 
 ```console
-git clone https://github.com/mohamednaser/restaurant.git
+git clone https://github.com/Salvador-ON/Todo-List-JS.git
 ```
 
 ## Live Version
 
-Live version [here](https://mohamednaser.github.io/restaurant/).
+Live version [here](https://salvador-on.github.io/Todo-List-JS/).
 
 ## ScreenShots
 
