@@ -18,8 +18,8 @@ class Project {
   }
 
   isEpmty() {
-    let projects = this.projects;
-    for (var prop in projects) {
+    const { projects } = this;
+    for (const prop in projects) {
       if (projects.hasOwnProperty(prop)) return false;
     }
     return true;

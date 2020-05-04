@@ -25,10 +25,20 @@ class Logic {
     button.addEventListener('click', () => {
       DomMan.flushInfoMessages();
       const projectName = document.getElementById('nameProject').value.toUpperCase();
-      that.projectObj.add(projectName);
-      LocalStorageWrapper.updateItem('projects', this.projectObj.getAll());
-      DomMan.addInfoMessage(`${projectName} Category Addeed!`);
-      DomMan.updateProjectList(this.projectObj.getAll());
+      const projectsList = Object.keys(LocalStorageWrapper.getItem('projects'));
+      if (projectName.length > 0  && !projectsList.includes(projectName)) {
+        that.projectObj.add(projectName);
+        LocalStorageWrapper.updateItem('projects', this.projectObj.getAll());
+        DomMan.addInfoMessage(`${projectName} Category Addeed!`);
+        DomMan.updateProjectList(this.projectObj.getAll());
+      }
+      if (projectsList.includes(projectName)) {
+        DomMan.addErrorMessage('Category already exist');
+      }
+
+      if (projectName.length === 0) {
+        DomMan.addErrorMessage('Category is empty');
+      }
     });
     const button2 = document.getElementById('buttonShowAll');
     button2.addEventListener('click', () => { DomMan.allMyTask(LocalStorageWrapper.getItem('tasks')); });
@@ -40,20 +50,20 @@ class Logic {
   // if not create template with basic projects
   initializeLocalStorage() {
     if (this.projectObj.isEpmty()) {
-      this.projectObj.add('Mohamed');
-      this.projectObj.add('Home2');
-      this.projectObj.add('Groceries');
-      this.projectObj.add('Office');
-      this.projectObj.add('Kids');
+      this.projectObj.add('MOHAMED');
+      this.projectObj.add('HOME2');
+      this.projectObj.add('GROCERIES');
+      this.projectObj.add('OFFICE');
+      this.projectObj.add('KIDS');
 
-      this.taskObj.add('milk', '4 liter', 1, '2020-05-01', false, 'Groceries');
-      this.taskObj.add('chocolate', '2 bars', 2, '2020-05-11', true, 'Groceries');
-      this.taskObj.add('flour', '1 kg', 3, '2020-05-01', true, 'Groceries');
+      this.taskObj.add('milk', '4 liter', 1, '2020-05-01', false, 'GROCERIES');
+      this.taskObj.add('chocolate', '2 bars', 2, '2020-05-11', true, 'GROCERIES');
+      this.taskObj.add('flour', '1 kg', 3, '2020-05-01', true, 'GROCERIES');
 
       this.taskObj.add('finish budget', 'the presentation is on zoom', 3, '2020-05-08', false, 'Office');
-      this.taskObj.add('Tv interview', 'prepare information', 2, '2020-05-06', false, 'Office');
+      this.taskObj.add('Tv interview', 'prepare information', 2, '2020-05-06', false, 'OFFICE');
 
-      this.taskObj.add('Mike match', 'Central court avenue 125', 1, '2020-05-01', false, 'Kids');
+      this.taskObj.add('Mike match', 'Central court avenue 125', 1, '2020-05-01', false, 'KIDS');
 
       LocalStorageWrapper.updateItem('projects', this.projectObj.getAll());
       LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());
@@ -81,9 +91,9 @@ class Logic {
   }
 
   createTask() {
-    if(this.taskObj.validateData(null, null, null, null, null)) {
+    if (this.taskObj.validateData(null, null, null, null, null)) {
       alert('save Data');
-    }else{
+    } else {
       // console.log(this.taskObj.getErrors(), 'errors ');
       alert('we have errors');
     }

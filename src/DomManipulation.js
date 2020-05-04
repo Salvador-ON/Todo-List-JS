@@ -65,11 +65,10 @@ class DomMan {
       document.getElementById('categoryDisplay').appendChild(categoryOptions);
     });
 
-    document.getElementById('descriptionDisplay').value = taskDetails.project;
+    document.getElementById('taskDescription').value = taskDetails.description;
     document.getElementById('categoryDisplay').value = taskDetails.project;
     document.getElementById('priorityDisplay').value = taskDetails.priority;
     document.getElementById('dateDisplay').value = taskDetails.date;
-    document.getElementById('completeDisplay').checked = taskDetails.done;
   }
 
   // METHOD TO OBTAIN THE bg-color class in relation to the prioritys of each task
@@ -154,7 +153,7 @@ class DomMan {
   }
 
   static addErrorMessage(errorMessage) {
-    document.getElementById('info-div').className = 'alert alert-success w-100 alert-dismissible fade show';
+    document.getElementById('info-div').className = 'alert alert-danger w-100 alert-dismissible fade show';
     document.getElementById('result-message').innerHTML = errorMessage;
   }
 
@@ -193,11 +192,10 @@ class DomMan {
       categoryOptions.innerHTML = category;
       document.getElementById('categoryDisplay').appendChild(categoryOptions);
     });
-    document.getElementById('descriptionDisplay').value = '';
+    document.getElementById('taskDescription').value = '';
     document.getElementById('categoryDisplay').value = '';
     document.getElementById('priorityDisplay').value = '';
     document.getElementById('dateDisplay').value = '';
-    document.getElementById('completeDisplay').checked = false;
   }
 }
 
