@@ -5,3 +5,8 @@ body {
 input[type="checkbox"] {
   margin-right: 5px;
 }
+
+
+.button-info{
+  padding-right: 30%;
+}
