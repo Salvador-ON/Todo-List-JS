@@ -106,7 +106,7 @@ class Logic {
       this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
       LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());
       $('#exampleModalCenter').modal('hide');
-      DomMan.addInfoMessage(`${taskTitle} Task Added Suucess !`);
+      DomMan.addInfoMessage(`${taskTitle} Task Added Success !`);
       DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), taskCategory);
     }
   }

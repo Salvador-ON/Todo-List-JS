@@ -125,6 +125,7 @@ class DomMan {
           const taskTitleSpan = document.createElement('span');
           taskTitleSpan.style.textDecoration = taskCompltedStyle;
           taskTitleSpan.innerText = tasktDetails.title;
+          taskTitleSpan.className ='button-info py-3';
           checkboxInput.appendChild(taskTitleSpan);
           const dateSpan = document.createElement('span');
           dateSpan.className = 'float-right';
@@ -139,6 +140,9 @@ class DomMan {
           button.appendChild(taskTitleSpan);
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
+          taskTitleSpan.addEventListener('click', function ddata() {
+            DomMan.displayData(tasktDetails);
+          });
           document.getElementById('tasksLists').appendChild(button);
         }
       });

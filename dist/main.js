@@ -239,6 +239,7 @@ class DomManipulation_DomMan {
           const taskTitleSpan = document.createElement('span');
           taskTitleSpan.style.textDecoration = taskCompltedStyle;
           taskTitleSpan.innerText = tasktDetails.title;
+          taskTitleSpan.className ='button-info py-3';
           checkboxInput.appendChild(taskTitleSpan);
           const dateSpan = document.createElement('span');
           dateSpan.className = 'float-right';
@@ -253,6 +254,9 @@ class DomManipulation_DomMan {
           button.appendChild(taskTitleSpan);
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
+          taskTitleSpan.addEventListener('click', function ddata() {
+            DomManipulation_DomMan.displayData(tasktDetails);
+          });
           document.getElementById('tasksLists').appendChild(button);
         }
       });
@@ -525,7 +529,7 @@ class src_Logic {
       this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
       LocalStorage.updateItem('tasks', this.taskObj.getAll());
       $('#exampleModalCenter').modal('hide');
-      DomManipulation.addInfoMessage(`${taskTitle} Task Added Suucess !`);
+      DomManipulation.addInfoMessage(`${taskTitle} Task Added Success !`);
       DomManipulation.specificTask(LocalStorage.getItem('tasks'), taskCategory);
     }
   }
