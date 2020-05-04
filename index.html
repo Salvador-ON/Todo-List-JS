@@ -66,21 +66,26 @@
           </button>
         </div>
         <div class="modal-body">
+
           <div>Category</div>
-          <div class="border rounded border-primary m-2 p-2 text-capitalize" id="categoryDisplay"></div>
+          <select id="categoryDisplay" class="form-control">
+          </select>
           <div>Date</div>
-          <div class="border rounded border-primary m-2 p-2 text-capitalize" id="dateDisplay"></div>
+          <input class="form-control" type="date" id="dateDisplay">
           <div>Priority</div>
-          
-          <div class="border rounded border-primary m-2 p-2 text-capitalize" id="priorityDisplay"></div>
+          <select id="priorityDisplay" class="form-control">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
           <div>Description</div>
-          <textarea class="border rounded border-primary m-2 p-2 text-capitalize" id="descriptionDisplay"></textarea>
+          <input class="form-control" type="text" id="descriptionDisplay">
           <div>Completed</div>
           <input type="checkbox" id="completeDisplay" class="border rounded border-primary m-2 p-2 text-capitalize">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <div id="buttonModal"></div>
         </div>
       </div>
     </div>
