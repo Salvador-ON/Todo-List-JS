@@ -103,10 +103,10 @@ class LocalStorageWrapper {
     return this;
   }
 
-  static removeTask(category , task){
-    const tasks =  JSON.parse(localStorage.getItem('tasks'));
-    console.log('all tasks ' , tasks);
-  }
+  // static removeTask(category , task){
+  //   const tasks =  JSON.parse(localStorage.getItem('tasks'));
+  //   console.log('all tasks ' , tasks);
+  // }
 }
 
 /* harmony default export */ var LocalStorage = (LocalStorageWrapper);
@@ -208,16 +208,17 @@ class DomManipulation_DomMan {
   static specificTask(categories, category) {
     document.getElementById('buttonModal').innerHTML='';
     const buttonModal = document.createElement('button');
-    buttonModal.id = 'buttonUpdate'
-    buttonModal.className='btn btn-primary';
-    buttonModal.type='button';
-    buttonModal.innerHTML= 'Update task';
+    buttonModal.id = 'buttonUpdate';
+    buttonModal.className = 'btn btn-primary';
+    buttonModal.type = 'button';
+    buttonModal.innerHTML = 'Update task';
     document.getElementById('buttonModal').appendChild(buttonModal);
     document.getElementById('tasksLists').innerHTML = '';
     document.getElementById('taskTitle').innerHTML = '';
     const title = document.getElementById('taskTitle');
+    const logicobject = new src();
+
     title.innerHTML = `${category}`;
-    //  console.log(categoryTasks ,'category task')
     if (category in categories) {
       Object.keys(categories[category]).forEach(task => {
         const tasktDetails = categories[category][task];
@@ -231,7 +232,10 @@ class DomManipulation_DomMan {
           // button.innerHTML = `<input type='checkbox'> <span style= 'text-decoration: ${taskCompltedStyle};'>${tasktDetails.title}</span><span class="float-right">${tasktDetails.date}<i class="fas fa-trash-alt px-2" onClick="Logic.removeTask('asd','asd2');"></i></span>`;
           const checkboxInput = document.createElement('input');
           checkboxInput.type = 'checkbox';
-
+          checkboxInput.checked = tasktDetails.done;
+          checkboxInput.addEventListener('click', () => {
+            logicobject.toggleTaskStatus(category, tasktDetails.title);
+          });
           const taskTitleSpan = document.createElement('span');
           taskTitleSpan.style.textDecoration = taskCompltedStyle;
           taskTitleSpan.innerText = tasktDetails.title;
@@ -243,9 +247,7 @@ class DomManipulation_DomMan {
           const removeSpan = document.createElement('i');
           removeSpan.className = 'fas fa-trash-alt px-2';
           removeSpan.addEventListener('click', () => {
-            const logicobject = new src();
-            console.log(logicobject.removeTask('moahmed', 'naser'), 'instance');
-            src.removeTask('asd', 'moahmed');
+            logicobject.removeTask(category, tasktDetails.title);
           });
           button.appendChild(checkboxInput);
           button.appendChild(taskTitleSpan);
@@ -333,11 +335,9 @@ class Project {
     let projects = this.projects;
     for (var prop in projects) {
       if (projects.hasOwnProperty(prop)) return false;
-    }    
+    }
     return true;
   }
-
-  fillDummyProjects() {}
 }
 
 /* harmony default export */ var src_Project = (Project);
@@ -368,8 +368,11 @@ class Task {
   }
 
   remove(category, taskName) {
+    delete this.tasks[category][taskName];
+  }
 
-    console.log(this.tasks[category], category, taskName);
+  toggleStatus(category, taskName) {
+    this.tasks[category][taskName].done = !this.tasks[category][taskName].done;
   }
 }
 
@@ -447,7 +450,17 @@ class src_Logic {
   removeTask(category, taskName) {
     this.taskObj.remove(category, taskName);
     LocalStorage.updateItem('tasks', this.taskObj.getAll());
+    DomManipulation.addInfoMessage(`${taskName} Deleted Suucess !`);
+    DomManipulation.specificTask(LocalStorage.getItem('tasks'), category);
   }
+
+  toggleTaskStatus(category, taskName) {
+    this.taskObj.toggleStatus(category, taskName);
+    LocalStorage.updateItem('tasks', this.taskObj.getAll());
+    DomManipulation.addInfoMessage(`${taskName} Updated Suucess !`);
+    DomManipulation.specificTask(LocalStorage.getItem('tasks'), category);
+  }
+
 }
 
 const toDo = new src_Logic();
