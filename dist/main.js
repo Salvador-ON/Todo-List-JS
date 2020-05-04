@@ -102,11 +102,6 @@ class LocalStorageWrapper {
     localStorage.setItem(key, JSON.stringify(data));
     return this;
   }
-
-  // static removeTask(category , task){
-  //   const tasks =  JSON.parse(localStorage.getItem('tasks'));
-  //   console.log('all tasks ' , tasks);
-  // }
 }
 
 /* harmony default export */ var LocalStorage = (LocalStorageWrapper);
@@ -474,7 +469,6 @@ class src_Logic {
   // if not create template with basic projects
   initializeLocalStorage() {
     if (this.projectObj.isEpmty()) {
-      this.projectObj.add('MOHAMED');
       this.projectObj.add('HOME2');
       this.projectObj.add('GROCERIES');
       this.projectObj.add('OFFICE');

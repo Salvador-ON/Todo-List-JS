@@ -51,7 +51,6 @@ class Logic {
   // if not create template with basic projects
   initializeLocalStorage() {
     if (this.projectObj.isEpmty()) {
-      this.projectObj.add('MOHAMED');
       this.projectObj.add('HOME2');
       this.projectObj.add('GROCERIES');
       this.projectObj.add('OFFICE');
