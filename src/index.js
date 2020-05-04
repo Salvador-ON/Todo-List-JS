@@ -105,6 +105,27 @@ class Logic {
       DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), taskCategory);
     }
   }
+
+  updateTask(taskDetails) {
+    const taskTitle = document.getElementById('taskTitle').value;
+    const taskCategory = document.getElementById('taskCategory').value;
+    const taskDate = document.getElementById('taskDate').value;
+    const taskPriority = parseInt(document.getElementById('taskPriority').value, 10);
+    const taskDescription = document.getElementById('taskDescription').value;
+    if (this.taskObj.validateData(taskTitle, taskDescription, taskPriority,
+      taskDate, taskCategory)) {
+      DomMan.showNewTaskErrors(this.taskObj.getErrors());
+    } else {
+      if (taskTitle !== taskDetails.title || taskCategory !== taskDetails.project) {
+        this.removeTask(taskDetails.project, taskDetails.title)
+      }
+      this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
+      LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());
+      $('#exampleModalCenter').modal('hide');
+      DomMan.addInfoMessage(`${taskTitle} Task Added Success !`);
+      DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), taskCategory);
+    }
+  }
 }
 
 const toDo = new Logic();

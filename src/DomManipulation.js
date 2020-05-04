@@ -55,18 +55,22 @@ class DomMan {
     buttonModal.className = 'btn btn-primary';
     buttonModal.type = 'button';
     buttonModal.innerHTML = 'Update task';
+    buttonModal.addEventListener('click', () => {
+       const update = new Logic;
+       update.updateTask(taskDetails)
+    });
     document.getElementById('buttonModal').appendChild(buttonModal);
     const title = document.getElementById('exampleModalCenterTitle');
     title.innerHTML = taskDetails.title;
     title.classList.add('text-capitalize');
     document.getElementById('taskCategory').innerHTML = '';
-    console.log(projects)
-    // Object.keys(projects).forEach(category => {
-    //   const categoryOptions = document.createElement('option');
-    //   categoryOptions.value = category;
-    //   categoryOptions.innerHTML = category;
-    //   document.getElementById('taskCategory').appendChild(categoryOptions);
-    // });
+
+    Object.keys(projects).forEach(category => {
+      const categoryOptions = document.createElement('option');
+      categoryOptions.value = category;
+      categoryOptions.innerHTML = category;
+      document.getElementById('taskCategory').appendChild(categoryOptions);
+    });
     document.getElementById('taskTitle').value = taskDetails.title;
     document.getElementById('taskDescription').value = taskDetails.description;
     document.getElementById('taskCategory').value = taskDetails.project;
@@ -143,7 +147,7 @@ class DomMan {
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
           taskTitleSpan.addEventListener('click', function ddata() {
-            DomMan.displayData(tasktDetails);
+            DomMan.displayData(tasktDetails, LocalStorageWrapper.getItem('projects'));
           });
           document.getElementById('tasksLists').appendChild(button);
         }
