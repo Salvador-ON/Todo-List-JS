@@ -403,6 +403,10 @@ class Task {
     return (this.errors.length > 0);
   }
 
+  flushErrors() {
+    this.errors = [];
+  }
+
   setError(error) {
     this.errors.push(error);
     return true;
@@ -429,7 +433,7 @@ class src_Logic {
   domInit() {
     DomManipulation.updateProjectList(this.projectObj.getAll());
     this.addListener();
-    DomManipulation.allMyTask(this.taskObj.getAll());
+    // DomMan.allMyTask(this.taskObj.getAll());
   }
 
 
@@ -455,8 +459,6 @@ class src_Logic {
         DomManipulation.addErrorMessage('Category is empty');
       }
     });
-    const button2 = document.getElementById('buttonShowAll');
-    button2.addEventListener('click', () => { DomManipulation.allMyTask(LocalStorage.getItem('tasks')); });
     const button3 = document.getElementById('buttonNewTask');
     button3.addEventListener('click', () => { DomManipulation.newTaskModal(LocalStorage.getItem('projects')); });
   }
@@ -505,13 +507,11 @@ class src_Logic {
   }
 
   createTask() {
-    document.getElementById('errors-list').innerHTML = ' ';
     const taskTitle = document.getElementById('taskTitle').value;
     const taskCategory = document.getElementById('taskCategory').value;
     const taskDate = document.getElementById('taskDate').value;
-    const taskPriority = parseInt(document.getElementById('taskPriority').value);
+    const taskPriority = parseInt(document.getElementById('taskPriority').value, 10);
     const taskDescription = document.getElementById('taskDescription').value;
-
     if (this.taskObj.validateData(taskTitle, taskDescription, taskPriority,
       taskDate, taskCategory)) {
       DomManipulation.showNewTaskErrors(this.taskObj.getErrors());

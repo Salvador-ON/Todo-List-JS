@@ -15,7 +15,7 @@ class Logic {
   domInit() {
     DomMan.updateProjectList(this.projectObj.getAll());
     this.addListener();
-    DomMan.allMyTask(this.taskObj.getAll());
+    // DomMan.allMyTask(this.taskObj.getAll());
   }
 
 
@@ -41,8 +41,6 @@ class Logic {
         DomMan.addErrorMessage('Category is empty');
       }
     });
-    const button2 = document.getElementById('buttonShowAll');
-    button2.addEventListener('click', () => { DomMan.allMyTask(LocalStorageWrapper.getItem('tasks')); });
     const button3 = document.getElementById('buttonNewTask');
     button3.addEventListener('click', () => { DomMan.newTaskModal(LocalStorageWrapper.getItem('projects')); });
   }
@@ -91,13 +89,11 @@ class Logic {
   }
 
   createTask() {
-    document.getElementById('errors-list').innerHTML = ' ';
     const taskTitle = document.getElementById('taskTitle').value;
     const taskCategory = document.getElementById('taskCategory').value;
     const taskDate = document.getElementById('taskDate').value;
-    const taskPriority = parseInt(document.getElementById('taskPriority').value);
+    const taskPriority = parseInt(document.getElementById('taskPriority').value, 10);
     const taskDescription = document.getElementById('taskDescription').value;
-
     if (this.taskObj.validateData(taskTitle, taskDescription, taskPriority,
       taskDate, taskCategory)) {
       DomMan.showNewTaskErrors(this.taskObj.getErrors());

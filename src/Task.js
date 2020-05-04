@@ -50,6 +50,10 @@ class Task {
     return (this.errors.length > 0);
   }
 
+  flushErrors() {
+    this.errors = [];
+  }
+
   setError(error) {
     this.errors.push(error);
     return true;
