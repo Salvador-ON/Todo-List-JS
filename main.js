@@ -210,8 +210,8 @@ class DomManipulation_DomMan {
     buttonModal.innerHTML = 'Update task';
     document.getElementById('buttonModal').appendChild(buttonModal);
     document.getElementById('tasksLists').innerHTML = '';
-    document.getElementById('taskTitle').innerHTML = '';
-    const title = document.getElementById('taskTitle');
+    document.getElementById('AllTasks').innerHTML = '';
+    const title = document.getElementById('AllTasks');
     const logicobject = new src();
 
     title.innerHTML = `${category}`;
@@ -509,7 +509,7 @@ class src_Logic {
     const taskTitle = document.getElementById('taskTitle').value;
     const taskCategory = document.getElementById('taskCategory').value;
     const taskDate = document.getElementById('taskDate').value;
-    const taskPriority = document.getElementById('taskPriority').value;
+    const taskPriority = parseInt(document.getElementById('taskPriority').value);
     const taskDescription = document.getElementById('taskDescription').value;
 
     if (this.taskObj.validateData(taskTitle, taskDescription, taskPriority,
