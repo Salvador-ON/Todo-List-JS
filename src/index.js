@@ -15,7 +15,6 @@ class Logic {
   domInit() {
     DomMan.updateProjectList(this.projectObj.getAll());
     this.addListener();
-    // DomMan.allMyTask(this.taskObj.getAll());
   }
 
 
@@ -117,7 +116,7 @@ class Logic {
       DomMan.showNewTaskErrors(this.taskObj.getErrors());
     } else {
       if (taskTitle !== taskDetails.title || taskCategory !== taskDetails.project) {
-        this.removeTask(taskDetails.project, taskDetails.title)
+        this.removeTask(taskDetails.project, taskDetails.title);
       }
       this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
       LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());

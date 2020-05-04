@@ -11,18 +11,14 @@ class Project {
     return true;
   }
 
-  update(key, data) {}
-
   getAll() {
     return this.projects;
   }
 
   isEpmty() {
     const { projects } = this;
-    for (const prop in projects) {
-      if (projects.hasOwnProperty(prop)) return false;
-    }
-    return true;
+    if (Object.entries(projects).length === 0) return true;
+    return false;
   }
 }
 

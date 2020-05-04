@@ -58,8 +58,6 @@ class Task {
     this.errors.push(error);
     return true;
   }
-
-  
 }
 
 export default Task;

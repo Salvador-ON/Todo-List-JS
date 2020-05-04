@@ -19,32 +19,6 @@ class DomMan {
     });
   }
 
-  // method to dispaly the list of task
-  // we have the projects object as argument to make all the interactions inside
-  static allMyTask(projects) {
-    document.getElementById('taskTitle').innerHTML = '';
-    const title = document.getElementById('taskTitle');
-    title.innerHTML = 'All my tasks';
-    document.getElementById('tasksLists').innerHTML = '';
-    Object.keys(projects).forEach(project => {
-      Object.keys(projects[project]).forEach(task => {
-        if (task !== 'name') {
-          const button = document.createElement('button');
-          button.type = 'button';
-          button.id = `${projects[project][task].project}-${projects[project][task].title}`;
-          button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
-          button.classList.add(DomMan.displayColor(projects[project][task].priority));
-          button.innerHTML = `<span style = "text-decoration: line-through;">${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
-          button.addEventListener('click', () => {
-            console.log(LocalStorageWrapper.getItem('projects'))
-            DomMan.displayData(projects[project][task], LocalStorageWrapper.getItem('projects'));
-          });
-          document.getElementById('tasksLists').appendChild(button);
-        }
-      });
-    });
-  }
-
   // method to display the specific information of each task
   // when we click in. it display it in a modal
   static displayData(taskDetails, projects) {
@@ -56,8 +30,8 @@ class DomMan {
     buttonModal.type = 'button';
     buttonModal.innerHTML = 'Update task';
     buttonModal.addEventListener('click', () => {
-       const update = new Logic;
-       update.updateTask(taskDetails)
+      const update = new Logic();
+      update.updateTask(taskDetails);
     });
     document.getElementById('buttonModal').appendChild(buttonModal);
     const title = document.getElementById('exampleModalCenterTitle');
@@ -131,7 +105,7 @@ class DomMan {
           const taskTitleSpan = document.createElement('span');
           taskTitleSpan.style.textDecoration = taskCompltedStyle;
           taskTitleSpan.innerText = tasktDetails.title;
-          taskTitleSpan.className ='button-info py-3';
+          taskTitleSpan.className = 'button-info py-3';
           checkboxInput.appendChild(taskTitleSpan);
           const dateSpan = document.createElement('span');
           dateSpan.className = 'float-right';
@@ -146,7 +120,7 @@ class DomMan {
           button.appendChild(taskTitleSpan);
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
-          taskTitleSpan.addEventListener('click', function ddata() {
+          taskTitleSpan.addEventListener('click', () => {
             DomMan.displayData(tasktDetails, LocalStorageWrapper.getItem('projects'));
           });
           document.getElementById('tasksLists').appendChild(button);
