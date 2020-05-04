@@ -444,7 +444,7 @@ class src_Logic {
       DomManipulation.flushInfoMessages();
       const projectName = document.getElementById('nameProject').value.toUpperCase();
       const projectsList = Object.keys(LocalStorage.getItem('projects'));
-      if (projectName.length > 0  && !projectsList.includes(projectName)) {
+      if (projectName.length > 0 && !projectsList.includes(projectName)) {
         that.projectObj.add(projectName);
         LocalStorage.updateItem('projects', this.projectObj.getAll());
         DomManipulation.addInfoMessage(`${projectName} Category Addeed!`);

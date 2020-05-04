@@ -26,7 +26,7 @@ class Logic {
       DomMan.flushInfoMessages();
       const projectName = document.getElementById('nameProject').value.toUpperCase();
       const projectsList = Object.keys(LocalStorageWrapper.getItem('projects'));
-      if (projectName.length > 0  && !projectsList.includes(projectName)) {
+      if (projectName.length > 0 && !projectsList.includes(projectName)) {
         that.projectObj.add(projectName);
         LocalStorageWrapper.updateItem('projects', this.projectObj.getAll());
         DomMan.addInfoMessage(`${projectName} Category Addeed!`);
