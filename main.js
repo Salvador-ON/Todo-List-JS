@@ -171,18 +171,18 @@ class DomManipulation_DomMan {
     const title = document.getElementById('exampleModalCenterTitle');
     title.innerHTML = taskDetails.title;
     title.classList.add('text-capitalize');
-    document.getElementById('categoryDisplay').innerHTML = '';
+    document.getElementById('taskCategory').innerHTML = '';
     Object.keys(projects).forEach(category => {
       const categoryOptions = document.createElement('option');
       categoryOptions.value = category;
       categoryOptions.innerHTML = category;
-      document.getElementById('categoryDisplay').appendChild(categoryOptions);
+      document.getElementById('taskCategory').appendChild(categoryOptions);
     });
 
     document.getElementById('taskDescription').value = taskDetails.description;
-    document.getElementById('categoryDisplay').value = taskDetails.project;
-    document.getElementById('priorityDisplay').value = taskDetails.priority;
-    document.getElementById('dateDisplay').value = taskDetails.date;
+    document.getElementById('taskCategory').value = taskDetails.project;
+    document.getElementById('taskPriority').value = taskDetails.priority;
+    document.getElementById('taskDate').value = taskDetails.date;
   }
 
   // METHOD TO OBTAIN THE bg-color class in relation to the prioritys of each task
@@ -252,10 +252,6 @@ class DomManipulation_DomMan {
           button.appendChild(taskTitleSpan);
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
-
-          // button.addEventListener('click', function ddata() {
-          //   DomMan.displayData(tasktDetails);
-          // });
           document.getElementById('tasksLists').appendChild(button);
         }
       });
@@ -299,17 +295,30 @@ class DomManipulation_DomMan {
     title.classList.add('text-capitalize');
     const errorsDiv = document.createElement('div');
     errorsDiv.className = 'errorsDiv';
-    document.getElementById('categoryDisplay').innerHTML = '';
+    document.getElementById('taskCategory').innerHTML = '';
     Object.keys(categories).forEach(category => {
       const categoryOptions = document.createElement('option');
       categoryOptions.value = category;
       categoryOptions.innerHTML = category;
-      document.getElementById('categoryDisplay').appendChild(categoryOptions);
+      document.getElementById('taskCategory').appendChild(categoryOptions);
     });
     document.getElementById('taskDescription').value = '';
-    document.getElementById('categoryDisplay').value = '';
-    document.getElementById('priorityDisplay').value = '';
-    document.getElementById('dateDisplay').value = '';
+    document.getElementById('taskCategory').value = '';
+    document.getElementById('taskPriority').value = '';
+    document.getElementById('taskDate').value = '';
+  }
+
+  static showNewTaskErrors(errors) {
+    const errorsDiv = document.getElementById('new-task-errors');
+    errorsDiv.className = 'alert alert-danger';
+    const olList = document.getElementById('errors-list');
+    olList.innerHTML = '';
+    errors.forEach((error) => {
+      const errorList = document.createElement('li');
+      errorList.innerHTML = error;
+      olList.appendChild(errorList);
+    });
+    errorsDiv.appendChild(olList);
   }
 }
 
@@ -368,6 +377,7 @@ class Task {
   }
 
   validateData(title, description, priority, date, project) {
+    this.errors = [];
     if (!title) this.setError('Title Shoud not be empty .');
     if (!description) this.setError('description Shoud not be empty . ');
     if (!priority) this.setError('priority Shoud not be empty . ');
@@ -458,6 +468,7 @@ class src_Logic {
   // if not create template with basic projects
   initializeLocalStorage() {
     if (this.projectObj.isEpmty()) {
+      this.projectObj.add('MOHAMED');
       this.projectObj.add('HOME2');
       this.projectObj.add('GROCERIES');
       this.projectObj.add('OFFICE');
@@ -498,11 +509,22 @@ class src_Logic {
   }
 
   createTask() {
-    if (this.taskObj.validateData(null, null, null, null, null)) {
-      alert('save Data');
+    document.getElementById('errors-list').innerHTML = ' ';
+    const taskTitle = document.getElementById('taskTitle').value;
+    const taskCategory = document.getElementById('taskCategory').value;
+    const taskDate = document.getElementById('taskDate').value;
+    const taskPriority = document.getElementById('taskPriority').value;
+    const taskDescription = document.getElementById('taskDescription').value;
+
+    if (this.taskObj.validateData(taskTitle, taskDescription, taskPriority,
+      taskDate, taskCategory)) {
+      DomManipulation.showNewTaskErrors(this.taskObj.getErrors());
     } else {
-      // console.log(this.taskObj.getErrors(), 'errors ');
-      alert('we have errors');
+      this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
+      LocalStorage.updateItem('tasks', this.taskObj.getAll());
+      $('#exampleModalCenter').modal('hide');
+      DomManipulation.addInfoMessage(`${taskTitle} Task Added Suucess !`);
+      DomManipulation.specificTask(LocalStorage.getItem('tasks'), taskCategory);
     }
   }
 }
