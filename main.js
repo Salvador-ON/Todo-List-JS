@@ -164,18 +164,22 @@ class DomManipulation_DomMan {
     buttonModal.className = 'btn btn-primary';
     buttonModal.type = 'button';
     buttonModal.innerHTML = 'Update task';
+    buttonModal.addEventListener('click', () => {
+       const update = new src;
+       update.updateTask(taskDetails)
+    });
     document.getElementById('buttonModal').appendChild(buttonModal);
     const title = document.getElementById('exampleModalCenterTitle');
     title.innerHTML = taskDetails.title;
     title.classList.add('text-capitalize');
     document.getElementById('taskCategory').innerHTML = '';
-    console.log(projects)
-    // Object.keys(projects).forEach(category => {
-    //   const categoryOptions = document.createElement('option');
-    //   categoryOptions.value = category;
-    //   categoryOptions.innerHTML = category;
-    //   document.getElementById('taskCategory').appendChild(categoryOptions);
-    // });
+
+    Object.keys(projects).forEach(category => {
+      const categoryOptions = document.createElement('option');
+      categoryOptions.value = category;
+      categoryOptions.innerHTML = category;
+      document.getElementById('taskCategory').appendChild(categoryOptions);
+    });
     document.getElementById('taskTitle').value = taskDetails.title;
     document.getElementById('taskDescription').value = taskDetails.description;
     document.getElementById('taskCategory').value = taskDetails.project;
@@ -252,7 +256,7 @@ class DomManipulation_DomMan {
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
           taskTitleSpan.addEventListener('click', function ddata() {
-            DomManipulation_DomMan.displayData(tasktDetails);
+            DomManipulation_DomMan.displayData(tasktDetails, LocalStorage.getItem('projects'));
           });
           document.getElementById('tasksLists').appendChild(button);
         }
@@ -417,6 +421,8 @@ class Task {
     this.errors.push(error);
     return true;
   }
+
+  
 }
 
 /* harmony default export */ var src_Task = (Task);
@@ -522,6 +528,27 @@ class src_Logic {
       taskDate, taskCategory)) {
       DomManipulation.showNewTaskErrors(this.taskObj.getErrors());
     } else {
+      this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
+      LocalStorage.updateItem('tasks', this.taskObj.getAll());
+      $('#exampleModalCenter').modal('hide');
+      DomManipulation.addInfoMessage(`${taskTitle} Task Added Success !`);
+      DomManipulation.specificTask(LocalStorage.getItem('tasks'), taskCategory);
+    }
+  }
+
+  updateTask(taskDetails) {
+    const taskTitle = document.getElementById('taskTitle').value;
+    const taskCategory = document.getElementById('taskCategory').value;
+    const taskDate = document.getElementById('taskDate').value;
+    const taskPriority = parseInt(document.getElementById('taskPriority').value, 10);
+    const taskDescription = document.getElementById('taskDescription').value;
+    if (this.taskObj.validateData(taskTitle, taskDescription, taskPriority,
+      taskDate, taskCategory)) {
+      DomManipulation.showNewTaskErrors(this.taskObj.getErrors());
+    } else {
+      if (taskTitle !== taskDetails.title || taskCategory !== taskDetails.project) {
+        this.removeTask(taskDetails.project, taskDetails.title)
+      }
       this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
       LocalStorage.updateItem('tasks', this.taskObj.getAll());
       $('#exampleModalCenter').modal('hide');
