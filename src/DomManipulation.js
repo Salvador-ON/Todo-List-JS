@@ -101,8 +101,8 @@ class DomMan {
     buttonModal.innerHTML = 'Update task';
     document.getElementById('buttonModal').appendChild(buttonModal);
     document.getElementById('tasksLists').innerHTML = '';
-    document.getElementById('taskTitle').innerHTML = '';
-    const title = document.getElementById('taskTitle');
+    document.getElementById('AllTasks').innerHTML = '';
+    const title = document.getElementById('AllTasks');
     const logicobject = new Logic();
 
     title.innerHTML = `${category}`;
