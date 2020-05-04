@@ -145,6 +145,7 @@ class DomManipulation_DomMan {
           button.classList.add(DomManipulation_DomMan.displayColor(projects[project][task].priority));
           button.innerHTML = `<span style = "text-decoration: line-through;">${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
           button.addEventListener('click', () => {
+            console.log(LocalStorage.getItem('projects'))
             DomManipulation_DomMan.displayData(projects[project][task], LocalStorage.getItem('projects'));
           });
           document.getElementById('tasksLists').appendChild(button);
@@ -168,13 +169,14 @@ class DomManipulation_DomMan {
     title.innerHTML = taskDetails.title;
     title.classList.add('text-capitalize');
     document.getElementById('taskCategory').innerHTML = '';
-    Object.keys(projects).forEach(category => {
-      const categoryOptions = document.createElement('option');
-      categoryOptions.value = category;
-      categoryOptions.innerHTML = category;
-      document.getElementById('taskCategory').appendChild(categoryOptions);
-    });
-
+    console.log(projects)
+    // Object.keys(projects).forEach(category => {
+    //   const categoryOptions = document.createElement('option');
+    //   categoryOptions.value = category;
+    //   categoryOptions.innerHTML = category;
+    //   document.getElementById('taskCategory').appendChild(categoryOptions);
+    // });
+    document.getElementById('taskTitle').value = taskDetails.title;
     document.getElementById('taskDescription').value = taskDetails.description;
     document.getElementById('taskCategory').value = taskDetails.project;
     document.getElementById('taskPriority').value = taskDetails.priority;
@@ -234,6 +236,7 @@ class DomManipulation_DomMan {
           const taskTitleSpan = document.createElement('span');
           taskTitleSpan.style.textDecoration = taskCompltedStyle;
           taskTitleSpan.innerText = tasktDetails.title;
+          taskTitleSpan.className ='button-info py-3';
           checkboxInput.appendChild(taskTitleSpan);
           const dateSpan = document.createElement('span');
           dateSpan.className = 'float-right';
@@ -248,6 +251,9 @@ class DomManipulation_DomMan {
           button.appendChild(taskTitleSpan);
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
+          taskTitleSpan.addEventListener('click', function ddata() {
+            DomManipulation_DomMan.displayData(tasktDetails);
+          });
           document.getElementById('tasksLists').appendChild(button);
         }
       });
@@ -519,7 +525,7 @@ class src_Logic {
       this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
       LocalStorage.updateItem('tasks', this.taskObj.getAll());
       $('#exampleModalCenter').modal('hide');
-      DomManipulation.addInfoMessage(`${taskTitle} Task Added Suucess !`);
+      DomManipulation.addInfoMessage(`${taskTitle} Task Added Success !`);
       DomManipulation.specificTask(LocalStorage.getItem('tasks'), taskCategory);
     }
   }
