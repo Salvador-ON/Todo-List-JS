@@ -36,6 +36,7 @@ class DomMan {
           button.classList.add(DomMan.displayColor(projects[project][task].priority));
           button.innerHTML = `<span style = "text-decoration: line-through;">${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
           button.addEventListener('click', () => {
+            console.log(LocalStorageWrapper.getItem('projects'))
             DomMan.displayData(projects[project][task], LocalStorageWrapper.getItem('projects'));
           });
           document.getElementById('tasksLists').appendChild(button);
@@ -59,13 +60,14 @@ class DomMan {
     title.innerHTML = taskDetails.title;
     title.classList.add('text-capitalize');
     document.getElementById('taskCategory').innerHTML = '';
-    Object.keys(projects).forEach(category => {
-      const categoryOptions = document.createElement('option');
-      categoryOptions.value = category;
-      categoryOptions.innerHTML = category;
-      document.getElementById('taskCategory').appendChild(categoryOptions);
-    });
-
+    console.log(projects)
+    // Object.keys(projects).forEach(category => {
+    //   const categoryOptions = document.createElement('option');
+    //   categoryOptions.value = category;
+    //   categoryOptions.innerHTML = category;
+    //   document.getElementById('taskCategory').appendChild(categoryOptions);
+    // });
+    document.getElementById('taskTitle').value = taskDetails.title;
     document.getElementById('taskDescription').value = taskDetails.description;
     document.getElementById('taskCategory').value = taskDetails.project;
     document.getElementById('taskPriority').value = taskDetails.priority;
