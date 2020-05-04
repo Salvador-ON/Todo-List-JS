@@ -128,32 +128,6 @@ class DomManipulation_DomMan {
     });
   }
 
-  // method to dispaly the list of task
-  // we have the projects object as argument to make all the interactions inside
-  static allMyTask(projects) {
-    document.getElementById('taskTitle').innerHTML = '';
-    const title = document.getElementById('taskTitle');
-    title.innerHTML = 'All my tasks';
-    document.getElementById('tasksLists').innerHTML = '';
-    Object.keys(projects).forEach(project => {
-      Object.keys(projects[project]).forEach(task => {
-        if (task !== 'name') {
-          const button = document.createElement('button');
-          button.type = 'button';
-          button.id = `${projects[project][task].project}-${projects[project][task].title}`;
-          button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
-          button.classList.add(DomManipulation_DomMan.displayColor(projects[project][task].priority));
-          button.innerHTML = `<span style = "text-decoration: line-through;">${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
-          button.addEventListener('click', () => {
-            console.log(LocalStorage.getItem('projects'))
-            DomManipulation_DomMan.displayData(projects[project][task], LocalStorage.getItem('projects'));
-          });
-          document.getElementById('tasksLists').appendChild(button);
-        }
-      });
-    });
-  }
-
   // method to display the specific information of each task
   // when we click in. it display it in a modal
   static displayData(taskDetails, projects) {
@@ -165,8 +139,8 @@ class DomManipulation_DomMan {
     buttonModal.type = 'button';
     buttonModal.innerHTML = 'Update task';
     buttonModal.addEventListener('click', () => {
-       const update = new src;
-       update.updateTask(taskDetails)
+      const update = new src();
+      update.updateTask(taskDetails);
     });
     document.getElementById('buttonModal').appendChild(buttonModal);
     const title = document.getElementById('exampleModalCenterTitle');
@@ -240,7 +214,7 @@ class DomManipulation_DomMan {
           const taskTitleSpan = document.createElement('span');
           taskTitleSpan.style.textDecoration = taskCompltedStyle;
           taskTitleSpan.innerText = tasktDetails.title;
-          taskTitleSpan.className ='button-info py-3';
+          taskTitleSpan.className = 'button-info py-3';
           checkboxInput.appendChild(taskTitleSpan);
           const dateSpan = document.createElement('span');
           dateSpan.className = 'float-right';
@@ -255,7 +229,7 @@ class DomManipulation_DomMan {
           button.appendChild(taskTitleSpan);
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
-          taskTitleSpan.addEventListener('click', function ddata() {
+          taskTitleSpan.addEventListener('click', () => {
             DomManipulation_DomMan.displayData(tasktDetails, LocalStorage.getItem('projects'));
           });
           document.getElementById('tasksLists').appendChild(button);
@@ -343,18 +317,14 @@ class Project {
     return true;
   }
 
-  update(key, data) {}
-
   getAll() {
     return this.projects;
   }
 
   isEpmty() {
     const { projects } = this;
-    for (const prop in projects) {
-      if (projects.hasOwnProperty(prop)) return false;
-    }
-    return true;
+    if (Object.entries(projects).length === 0) return true;
+    return false;
   }
 }
 
@@ -421,8 +391,6 @@ class Task {
     this.errors.push(error);
     return true;
   }
-
-  
 }
 
 /* harmony default export */ var src_Task = (Task);
@@ -445,7 +413,6 @@ class src_Logic {
   domInit() {
     DomManipulation.updateProjectList(this.projectObj.getAll());
     this.addListener();
-    // DomMan.allMyTask(this.taskObj.getAll());
   }
 
 
@@ -547,7 +514,7 @@ class src_Logic {
       DomManipulation.showNewTaskErrors(this.taskObj.getErrors());
     } else {
       if (taskTitle !== taskDetails.title || taskCategory !== taskDetails.project) {
-        this.removeTask(taskDetails.project, taskDetails.title)
+        this.removeTask(taskDetails.project, taskDetails.title);
       }
       this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
       LocalStorage.updateItem('tasks', this.taskObj.getAll());
