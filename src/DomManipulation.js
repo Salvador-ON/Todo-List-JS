@@ -1,5 +1,6 @@
 import Logic from './index';
 import LocalStorageWrapper from './LocalStorage';
+
 class DomMan {
   // method to dispaly the project updated list
   // we have the projects object as argument to make all the interactions inside
@@ -33,8 +34,8 @@ class DomMan {
           button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
           button.classList.add(DomMan.displayColor(projects[project][task].priority));
           button.innerHTML = `<span style = "text-decoration: line-through;">${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
-          button.addEventListener('click', function ddata() {
-            DomMan.displayData(projects[project][task],LocalStorageWrapper.getItem('projects'));
+          button.addEventListener('click', () => {
+            DomMan.displayData(projects[project][task], LocalStorageWrapper.getItem('projects'));
           });
           document.getElementById('tasksLists').appendChild(button);
         }
@@ -46,17 +47,17 @@ class DomMan {
   // when we click in. it display it in a modal
   static displayData(taskDetails, projects) {
     $('#exampleModalCenter').modal('show');
-    document.getElementById('buttonModal').innerHTML='';
+    document.getElementById('buttonModal').innerHTML = '';
     const buttonModal = document.createElement('button');
-    buttonModal.id = 'buttonUpdate'
-    buttonModal.className='btn btn-primary';
-    buttonModal.type='button';
-    buttonModal.innerHTML= 'Update task';
+    buttonModal.id = 'buttonUpdate';
+    buttonModal.className = 'btn btn-primary';
+    buttonModal.type = 'button';
+    buttonModal.innerHTML = 'Update task';
     document.getElementById('buttonModal').appendChild(buttonModal);
     const title = document.getElementById('exampleModalCenterTitle');
     title.innerHTML = taskDetails.title;
     title.classList.add('text-capitalize');
-    document.getElementById('categoryDisplay').innerHTML ='';
+    document.getElementById('categoryDisplay').innerHTML = '';
     Object.keys(projects).forEach(category => {
       const categoryOptions = document.createElement('option');
       categoryOptions.value = category;
@@ -92,7 +93,7 @@ class DomMan {
 
   // method to display the task of a specify category
   static specificTask(categories, category) {
-    document.getElementById('buttonModal').innerHTML='';
+    document.getElementById('buttonModal').innerHTML = '';
     const buttonModal = document.createElement('button');
     buttonModal.id = 'buttonUpdate';
     buttonModal.className = 'btn btn-primary';
@@ -115,7 +116,6 @@ class DomMan {
           button.id = `${tasktDetails.project}-${tasktDetails.title}`;
           button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold';
           button.classList.add(DomMan.displayColor(tasktDetails.priority));
-          // button.innerHTML = `<input type='checkbox'> <span style= 'text-decoration: ${taskCompltedStyle};'>${tasktDetails.title}</span><span class="float-right">${tasktDetails.date}<i class="fas fa-trash-alt px-2" onClick="Logic.removeTask('asd','asd2');"></i></span>`;
           const checkboxInput = document.createElement('input');
           checkboxInput.type = 'checkbox';
           checkboxInput.checked = tasktDetails.done;
@@ -169,18 +169,24 @@ class DomMan {
   }
 
   static newTaskModal(categories) {
+    const logicObj = new Logic();
     $('#exampleModalCenter').modal('show');
-    document.getElementById('buttonModal').innerHTML='';
+    document.getElementById('buttonModal').innerHTML = '';
     const buttonModal = document.createElement('button');
-    buttonModal.className='btn btn-primary';
-    buttonModal.type='button';
-    buttonModal.id = 'buttonNew'
-    buttonModal.innerHTML= 'Save new task';
+    buttonModal.className = 'btn btn-primary';
+    buttonModal.type = 'button';
+    buttonModal.id = 'buttonNew';
+    buttonModal.innerHTML = 'Save new task';
+    buttonModal.addEventListener('click', () => {
+      logicObj.createTask();
+    });
     document.getElementById('buttonModal').appendChild(buttonModal);
     const title = document.getElementById('exampleModalCenterTitle');
     title.innerHTML = 'New task';
     title.classList.add('text-capitalize');
-    document.getElementById('categoryDisplay').innerHTML ='';
+    const errorsDiv = document.createElement('div');
+    errorsDiv.className = 'errorsDiv';
+    document.getElementById('categoryDisplay').innerHTML = '';
     Object.keys(categories).forEach(category => {
       const categoryOptions = document.createElement('option');
       categoryOptions.value = category;
@@ -193,7 +199,6 @@ class DomMan {
     document.getElementById('dateDisplay').value = '';
     document.getElementById('completeDisplay').checked = false;
   }
-
 }
 
 export default DomMan;

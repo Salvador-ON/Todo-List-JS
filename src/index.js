@@ -33,7 +33,7 @@ class Logic {
     const button2 = document.getElementById('buttonShowAll');
     button2.addEventListener('click', () => { DomMan.allMyTask(LocalStorageWrapper.getItem('tasks')); });
     const button3 = document.getElementById('buttonNewTask');
-    button3.addEventListener('click', () => { DomMan.newTaskModal(LocalStorageWrapper.getItem('projects')); }); 
+    button3.addEventListener('click', () => { DomMan.newTaskModal(LocalStorageWrapper.getItem('projects')); });
   }
 
   // validate if the key word is saved on the local storgae
@@ -80,6 +80,14 @@ class Logic {
     DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), category);
   }
 
+  createTask() {
+    if(this.taskObj.validateData(null, null, null, null, null)) {
+      alert('save Data');
+    }else{
+      // console.log(this.taskObj.getErrors(), 'errors ');
+      alert('we have errors');
+    }
+  }
 }
 
 const toDo = new Logic();
