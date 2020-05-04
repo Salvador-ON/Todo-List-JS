@@ -57,18 +57,18 @@ class DomMan {
     const title = document.getElementById('exampleModalCenterTitle');
     title.innerHTML = taskDetails.title;
     title.classList.add('text-capitalize');
-    document.getElementById('categoryDisplay').innerHTML = '';
+    document.getElementById('taskCategory').innerHTML = '';
     Object.keys(projects).forEach(category => {
       const categoryOptions = document.createElement('option');
       categoryOptions.value = category;
       categoryOptions.innerHTML = category;
-      document.getElementById('categoryDisplay').appendChild(categoryOptions);
+      document.getElementById('taskCategory').appendChild(categoryOptions);
     });
 
     document.getElementById('taskDescription').value = taskDetails.description;
-    document.getElementById('categoryDisplay').value = taskDetails.project;
-    document.getElementById('priorityDisplay').value = taskDetails.priority;
-    document.getElementById('dateDisplay').value = taskDetails.date;
+    document.getElementById('taskCategory').value = taskDetails.project;
+    document.getElementById('taskPriority').value = taskDetails.priority;
+    document.getElementById('taskDate').value = taskDetails.date;
   }
 
   // METHOD TO OBTAIN THE bg-color class in relation to the prioritys of each task
@@ -138,10 +138,6 @@ class DomMan {
           button.appendChild(taskTitleSpan);
           button.appendChild(dateSpan);
           dateSpan.appendChild(removeSpan);
-
-          // button.addEventListener('click', function ddata() {
-          //   DomMan.displayData(tasktDetails);
-          // });
           document.getElementById('tasksLists').appendChild(button);
         }
       });
@@ -185,17 +181,30 @@ class DomMan {
     title.classList.add('text-capitalize');
     const errorsDiv = document.createElement('div');
     errorsDiv.className = 'errorsDiv';
-    document.getElementById('categoryDisplay').innerHTML = '';
+    document.getElementById('taskCategory').innerHTML = '';
     Object.keys(categories).forEach(category => {
       const categoryOptions = document.createElement('option');
       categoryOptions.value = category;
       categoryOptions.innerHTML = category;
-      document.getElementById('categoryDisplay').appendChild(categoryOptions);
+      document.getElementById('taskCategory').appendChild(categoryOptions);
     });
     document.getElementById('taskDescription').value = '';
-    document.getElementById('categoryDisplay').value = '';
-    document.getElementById('priorityDisplay').value = '';
-    document.getElementById('dateDisplay').value = '';
+    document.getElementById('taskCategory').value = '';
+    document.getElementById('taskPriority').value = '';
+    document.getElementById('taskDate').value = '';
+  }
+
+  static showNewTaskErrors(errors) {
+    const errorsDiv = document.getElementById('new-task-errors');
+    errorsDiv.className = 'alert alert-danger';
+    const olList = document.getElementById('errors-list');
+    olList.innerHTML = '';
+    errors.forEach((error) => {
+      const errorList = document.createElement('li');
+      errorList.innerHTML = error;
+      olList.appendChild(errorList);
+    });
+    errorsDiv.appendChild(olList);
   }
 }
 

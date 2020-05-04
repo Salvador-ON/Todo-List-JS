@@ -42,7 +42,7 @@
       </div>
       <div class="row d-flex justify-content-between">
         <div class="col-5 bg-light rounded shadow">
-          <div class="h3 text-center py-2 text-capitalize" id="taskTitle">
+          <div class="h3 text-center py-2 text-capitalize" id="AllTasks">
             All My Tasks
           </div>
           <div class="d-flex justify-content-between">
@@ -111,12 +111,19 @@
             </button>
           </div>
           <div class="modal-body">
+            <div id="new-task-errors">
+              <ul id="errors-list">
+
+              </ul>
+            </div>
+            <div>Title</div>
+            <input type="text" id="taskTitle" class="form-control" >             
             <div>Category</div>
-            <select id="categoryDisplay" class="form-control"> </select>
+            <select id="taskCategory" class="form-control"> </select>
             <div>Date</div>
-            <input class="form-control" type="date" id="dateDisplay" />
+            <input class="form-control" type="date" id="taskDate" />
             <div>Priority</div>
-            <select id="priorityDisplay" class="form-control">
+            <select id="taskPriority" class="form-control">
               <option value="1"> High </option>
               <option value="2"> Meduim </option>
               <option value="3"> Low </option>

@@ -91,11 +91,22 @@ class Logic {
   }
 
   createTask() {
-    if (this.taskObj.validateData(null, null, null, null, null)) {
-      alert('save Data');
+    document.getElementById('errors-list').innerHTML = ' ';
+    const taskTitle = document.getElementById('taskTitle').value;
+    const taskCategory = document.getElementById('taskCategory').value;
+    const taskDate = document.getElementById('taskDate').value;
+    const taskPriority = document.getElementById('taskPriority').value;
+    const taskDescription = document.getElementById('taskDescription').value;
+
+    if (this.taskObj.validateData(taskTitle, taskDescription, taskPriority,
+      taskDate, taskCategory)) {
+      DomMan.showNewTaskErrors(this.taskObj.getErrors());
     } else {
-      // console.log(this.taskObj.getErrors(), 'errors ');
-      alert('we have errors');
+      this.taskObj.add(taskTitle, taskDescription, taskPriority, taskDate, 0, taskCategory);
+      LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());
+      $('#exampleModalCenter').modal('hide');
+      DomMan.addInfoMessage(`${taskTitle} Task Added Suucess !`);
+      DomMan.specificTask(LocalStorageWrapper.getItem('tasks'), taskCategory);
     }
   }
 }

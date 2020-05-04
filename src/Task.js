@@ -20,6 +20,7 @@ class Task {
   }
 
   validateData(title, description, priority, date, project) {
+    this.errors = [];
     if (!title) this.setError('Title Shoud not be empty .');
     if (!description) this.setError('description Shoud not be empty . ');
     if (!priority) this.setError('priority Shoud not be empty . ');
