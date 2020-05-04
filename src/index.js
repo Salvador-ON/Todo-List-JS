@@ -1,4 +1,5 @@
 // import _ from 'lodash';
+// eslint-disable-next-line import/no-cycle
 import DomMan from './DomManipulation';
 import LocalStorageWrapper from './LocalStorage';
 import Project from './Project';

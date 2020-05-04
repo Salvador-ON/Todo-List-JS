@@ -112,6 +112,7 @@ class LocalStorageWrapper {
 /* harmony default export */ var LocalStorage = (LocalStorageWrapper);
 
 // CONCATENATED MODULE: ./src/DomManipulation.js
+// eslint-disable-next-line import/no-cycle
 
 
 
@@ -417,6 +418,7 @@ class Task {
 
 // CONCATENATED MODULE: ./src/index.js
 // import _ from 'lodash';
+// eslint-disable-next-line import/no-cycle
 
 
 

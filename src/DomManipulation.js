@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import Logic from './index';
 import LocalStorageWrapper from './LocalStorage';
 
