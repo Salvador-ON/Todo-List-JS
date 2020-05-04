@@ -31,27 +31,29 @@ class Logic {
       DomMan.updateProjectList(this.projectObj.getAll());
     });
     const button2 = document.getElementById('buttonShowAll');
-    button2.addEventListener('click', () => { DomMan.allMyTask(this.projects); });
+    button2.addEventListener('click', () => { DomMan.allMyTask(LocalStorageWrapper.getItem('tasks')); });
+    const button3 = document.getElementById('buttonNewTask');
+    button3.addEventListener('click', () => { DomMan.newTaskModal(LocalStorageWrapper.getItem('projects')); }); 
   }
 
   // validate if the key word is saved on the local storgae
   // if not create template with basic projects
   initializeLocalStorage() {
     if (this.projectObj.isEpmty()) {
-      this.projectObj.add('mohamed');
-      this.projectObj.add('home2');
-      this.projectObj.add('groceries');
-      this.projectObj.add('office');
-      this.projectObj.add('kids');
+      this.projectObj.add('Mohamed');
+      this.projectObj.add('Home2');
+      this.projectObj.add('Groceries');
+      this.projectObj.add('Office');
+      this.projectObj.add('Kids');
 
-      this.taskObj.add('milk', '4 liter', 1, '1-05-2020', false, 'groceries');
-      this.taskObj.add('chocolate', '2 bars', 2, '1-05-2020', true, 'groceries');
-      this.taskObj.add('flour', '1 kg', 3, '1-05-2020', false, 'groceries');
+      this.taskObj.add('milk', '4 liter', 1, '2020-05-01', false, 'Groceries');
+      this.taskObj.add('chocolate', '2 bars', 2, '2020-05-11', true, 'Groceries');
+      this.taskObj.add('flour', '1 kg', 3, '2020-05-01', true, 'Groceries');
 
-      this.taskObj.add('finish budget', 'the presentation is on zoom', 3, '4-05-2020', false, 'office');
-      this.taskObj.add('Tv interview', 'prepare information', 2, '1-05-2020', false, 'office');
+      this.taskObj.add('finish budget', 'the presentation is on zoom', 3, '2020-05-08', false, 'Office');
+      this.taskObj.add('Tv interview', 'prepare information', 2, '2020-05-06', false, 'Office');
 
-      this.taskObj.add('Mike match', 'Central court avenue 125', 1, '7-05-2020', false, 'kids');
+      this.taskObj.add('Mike match', 'Central court avenue 125', 1, '2020-05-01', false, 'Kids');
 
       LocalStorageWrapper.updateItem('projects', this.projectObj.getAll());
       LocalStorageWrapper.updateItem('tasks', this.taskObj.getAll());

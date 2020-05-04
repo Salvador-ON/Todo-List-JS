@@ -1,4 +1,5 @@
 import Logic from './index';
+import LocalStorageWrapper from './LocalStorage';
 class DomMan {
   // method to dispaly the project updated list
   // we have the projects object as argument to make all the interactions inside
@@ -32,9 +33,9 @@ class DomMan {
           button.className = 'list-group-item list-group-item-action text-capitalize text-white font-weight-bold d-flex justify-content-between';
           button.classList.add(DomMan.displayColor(projects[project][task].priority));
           button.innerHTML = `<span style = "text-decoration: line-through;">${projects[project][task].title}</span><span>${projects[project][task].date}</span>`;
-          // button.addEventListener('click', function ddata() {
-          //   DomMan.displayData(projects[project][task]);
-          // });
+          button.addEventListener('click', function ddata() {
+            DomMan.displayData(projects[project][task],LocalStorageWrapper.getItem('projects'));
+          });
           document.getElementById('tasksLists').appendChild(button);
         }
       });
@@ -43,24 +44,31 @@ class DomMan {
 
   // method to display the specific information of each task
   // when we click in. it display it in a modal
-  static displayData(taskDetails) {
+  static displayData(taskDetails, projects) {
     $('#exampleModalCenter').modal('show');
-
+    document.getElementById('buttonModal').innerHTML='';
+    const buttonModal = document.createElement('button');
+    buttonModal.id = 'buttonUpdate'
+    buttonModal.className='btn btn-primary';
+    buttonModal.type='button';
+    buttonModal.innerHTML= 'Update task';
+    document.getElementById('buttonModal').appendChild(buttonModal);
     const title = document.getElementById('exampleModalCenterTitle');
     title.innerHTML = taskDetails.title;
     title.classList.add('text-capitalize');
+    document.getElementById('categoryDisplay').innerHTML ='';
+    Object.keys(projects).forEach(category => {
+      const categoryOptions = document.createElement('option');
+      categoryOptions.value = category;
+      categoryOptions.innerHTML = category;
+      document.getElementById('categoryDisplay').appendChild(categoryOptions);
+    });
 
-    const description = document.getElementById('descriptionDisplay');
-    const category = document.getElementById('categoryDisplay');
-    const priority = document.getElementById('priorityDisplay');
-    const date = document.getElementById('dateDisplay');
-    const complete = document.getElementById('completeDisplay');
-
-    description.innerHTML = taskDetails.description;
-    priority.innerHTML = taskDetails.priority;
-    date.innerHTML = taskDetails.date;
-    complete.checked = taskDetails.done;
-    category.innerHTML = taskDetails.project;
+    document.getElementById('descriptionDisplay').value = taskDetails.project;
+    document.getElementById('categoryDisplay').value = taskDetails.project;
+    document.getElementById('priorityDisplay').value = taskDetails.priority;
+    document.getElementById('dateDisplay').value = taskDetails.date;
+    document.getElementById('completeDisplay').checked = taskDetails.done;
   }
 
   // METHOD TO OBTAIN THE bg-color class in relation to the prioritys of each task
@@ -84,6 +92,13 @@ class DomMan {
 
   // method to display the task of a specify category
   static specificTask(categories, category) {
+    document.getElementById('buttonModal').innerHTML='';
+    const buttonModal = document.createElement('button');
+    buttonModal.id = 'buttonUpdate'
+    buttonModal.className='btn btn-primary';
+    buttonModal.type='button';
+    buttonModal.innerHTML= 'Update task';
+    document.getElementById('buttonModal').appendChild(buttonModal);
     document.getElementById('tasksLists').innerHTML = '';
     document.getElementById('taskTitle').innerHTML = '';
     const title = document.getElementById('taskTitle');
@@ -92,7 +107,7 @@ class DomMan {
     if (category in categories) {
       Object.keys(categories[category]).forEach(task => {
         const tasktDetails = categories[category][task];
-        const taskCompltedStyle = (tasktDetails.done)?'line-through':'none';
+        const taskCompltedStyle = (tasktDetails.done) ? 'line-through' : 'none';
         if (task !== 'name') {
           const button = document.createElement('button');
           button.type = 'button';
@@ -115,7 +130,7 @@ class DomMan {
           removeSpan.className = 'fas fa-trash-alt px-2';
           removeSpan.addEventListener('click', () => {
             const logicobject = new Logic();
-            console.log(logicobject.removeTask('moahmed' , 'naser') , 'instance');
+            console.log(logicobject.removeTask('moahmed', 'naser'), 'instance');
             Logic.removeTask('asd', 'moahmed');
           });
           button.appendChild(checkboxInput);
@@ -150,6 +165,33 @@ class DomMan {
     const infoDiv = document.getElementById('info-div');
     infoDiv.className = 'd-none';
   }
+
+  static newTaskModal(categories) {
+    $('#exampleModalCenter').modal('show');
+    document.getElementById('buttonModal').innerHTML='';
+    const buttonModal = document.createElement('button');
+    buttonModal.className='btn btn-primary';
+    buttonModal.type='button';
+    buttonModal.id = 'buttonNew'
+    buttonModal.innerHTML= 'Save new task';
+    document.getElementById('buttonModal').appendChild(buttonModal);
+    const title = document.getElementById('exampleModalCenterTitle');
+    title.innerHTML = 'New task';
+    title.classList.add('text-capitalize');
+    document.getElementById('categoryDisplay').innerHTML ='';
+    Object.keys(categories).forEach(category => {
+      const categoryOptions = document.createElement('option');
+      categoryOptions.value = category;
+      categoryOptions.innerHTML = category;
+      document.getElementById('categoryDisplay').appendChild(categoryOptions);
+    });
+    document.getElementById('descriptionDisplay').value = '';
+    document.getElementById('categoryDisplay').value = '';
+    document.getElementById('priorityDisplay').value = '';
+    document.getElementById('dateDisplay').value = '';
+    document.getElementById('completeDisplay').checked = false;
+  }
+
 }
 
 export default DomMan;
