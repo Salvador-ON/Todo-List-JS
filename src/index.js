@@ -95,7 +95,7 @@ class Logic {
     const taskTitle = document.getElementById('taskTitle').value;
     const taskCategory = document.getElementById('taskCategory').value;
     const taskDate = document.getElementById('taskDate').value;
-    const taskPriority = document.getElementById('taskPriority').value;
+    const taskPriority = parseInt(document.getElementById('taskPriority').value);
     const taskDescription = document.getElementById('taskDescription').value;
 
     if (this.taskObj.validateData(taskTitle, taskDescription, taskPriority,
