@@ -1,0 +1,12 @@
+body {
+  background-color: rgb(241, 241, 241);
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+
+.button-info{
+  padding-right: 30%;
+}
