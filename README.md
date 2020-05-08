@@ -1,6 +1,6 @@
 # Todo-List-JS
 
-A Simple Todolist with html and js .
+A Simple Todolist with html and javascript .
 
 [Click To Check The Project Details](https://www.theodinproject.com/courses/javascript/lessons/todo-list)
 
@@ -19,7 +19,7 @@ This project was executed by the duo of :
 - LocalStorage
 - MarkDown Syntax
 
-## Done Work
+## Work Done
 
 - [x] Build Static Html.
 - [X] Build Program Logic.
